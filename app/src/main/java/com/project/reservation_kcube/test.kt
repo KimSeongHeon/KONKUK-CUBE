@@ -9,4 +9,8 @@ class test : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
 }
