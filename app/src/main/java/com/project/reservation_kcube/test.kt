@@ -1,13 +1,20 @@
 package com.project.reservation_kcube
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_test.*
 
 class test : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+        var paint = Paint()
+        paint.color = Color.BLACK
+        paint.alpha = 0;
+        abcd.setBackgroundColor(paint.color)
     }
 
     override fun onResume() {

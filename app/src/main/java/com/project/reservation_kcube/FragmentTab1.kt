@@ -1,18 +1,16 @@
 package com.project.reservation_kcube
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import kotlinx.android.synthetic.main.fragment_tab1.*
-import java.lang.Math.abs
 
 class FragmentTab1: Fragment() {
     lateinit var building_recycler:RecyclerView
@@ -54,9 +52,7 @@ class FragmentTab1: Fragment() {
         activity.setSupportActionBar(toolbar)
         activity!!.findViewById<AppBarLayout>(R.id.top_date_Appbarlayout).addOnOffsetChangedListener(object:AppBarLayout.OnOffsetChangedListener{
             override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
-                var oppacity = String.format("%06x",abs(p1)*1000)
-                Log.v("pos",p1.toString())
-                building_recycler.setBackgroundColor(Color.parseColor("#00FFFFFF"))
+                var params:WindowManager.LayoutParams = activity!!.window.attributes
             }
 
         })
