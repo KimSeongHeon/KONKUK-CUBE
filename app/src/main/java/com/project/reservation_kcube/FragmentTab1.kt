@@ -6,11 +6,15 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import com.project.reservation_kcube.MainActivity.Companion.update_time
 import kotlinx.android.synthetic.main.fragment_tab1.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class FragmentTab1: Fragment() {
     lateinit var building_recycler:RecyclerView
@@ -45,6 +49,18 @@ class FragmentTab1: Fragment() {
         date_recycler.layoutManager = when_layoutManager
         date_recycler.adapter = date_adapter
         date_adapter.notifyDataSetChanged()
+        setUpdateTime()
+    }
+    fun display_table(value:Array<String>){
+        Log.v("display_table","실행행")
+        var json_arr = JSONArray()
+        for(i in 0 until value.size){
+            try{
+                json_arr.put(i,JSONObject(value[i]))
+            }catch (ex:Exception){
+
+            }
+        }
     }
     fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
@@ -56,6 +72,9 @@ class FragmentTab1: Fragment() {
             }
 
         })
+    }
+    fun setUpdateTime(){
+        updtetime_text.text = update_time + " 업데이트 됨"
     }
 
 

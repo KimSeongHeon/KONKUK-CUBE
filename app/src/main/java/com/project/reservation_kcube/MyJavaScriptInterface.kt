@@ -34,7 +34,17 @@ class MyJavaScriptInterface(context:Context){
         }).start()
     }
     @JavascriptInterface
-    fun bye(value:String){
-        Log.v("bye",value)
+    fun get_table(value:Array<String>){
+        Log.v("get_table",value.get(1).toString())
+        Thread(object :Runnable{
+            override fun run() {
+                (mcontext as MainActivity).runOnUiThread(object :Runnable{
+                    override fun run() {
+                        (mcontext as MainActivity).fragmentTab1.display_table(value)
+                    }
+                })
+            }
+        }).start()
+
     }
 }

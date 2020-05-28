@@ -30,3 +30,22 @@ fun parsing_date():String{
             "}"+"window.android.get_date(arr);" + "return true;"+
             "}"+"date_parsing();"
 }
+fun parsing_table():String {
+    return "javascript:" +
+            "function table_parsing(){ " +
+            "var arr = [];" +
+            "var arr1 = [];" +
+            "var ret = [];" +
+            "arr = document.getElementsByClassName('enable range reservBtn first');" +
+            "arr1 = document.getElementsByClassName('enable range reservBtn last');" +
+            "for(var i=0;i<arr.length;i++){" +
+            " ret[i] = JSON.stringify(arr[i].getAttribute(\"data-params\"));" +
+            "console.log(ret[i])"+
+            "   } " +
+            "for(var i=0;i<arr1.length;i++){" +
+            " ret.push(JSON.stringify(arr[i].getAttribute(\"data-params\")));" +
+            "console.log(JSON.stringify(arr[i].getAttribute(\"data-params\")))"+
+            "   } " +
+            "window.android.get_table(ret);" + "return true"+
+            "}"+ "table_parsing()"+ ";";
+}
