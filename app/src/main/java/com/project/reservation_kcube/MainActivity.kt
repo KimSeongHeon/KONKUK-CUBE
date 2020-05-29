@@ -1,8 +1,10 @@
 package com.project.reservation_kcube
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -11,8 +13,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    val ENTRY_URL ="https://mwein.konkuk.ac.kr/common/user/login.do?rtnUrl=b58d750fbf5545f5f4baae3e7ae341ede04e949dfc43bbbdb06e08b6703dbf1a333241441b84e41988376ce5965bd888d74f5d50831f0ca83fa3e9f0fce1a911f8dd5aae9b92896cf1f0d04192324c6b74558d1061dbba81fde92d24f92f9f29ddac597fb6e379a6126fd3efced0cc6f06f525bc009bb711abcbe4b30c5f19772dc9bae76065beef1cf442a0edde98dc98efc87783c405374e10d9ee30060a08949fdf09259cab03647325c5d8300efe45bdc038285774d6ffb724d379fd68dc1cbc880dbb9e803db6232157fbc67b44";
-    val SUCCESS_LOGIN_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do?paramStart=paramStart&rsvYmd=2020.05.21&buildAll=Y&_buildAll=on&_buildList[1]=on&_buildList[2]=on&_buildList[3]=on&_buildList[4]=on&_buildList[5]=on&_buildList[6]=on";
+    val ENTRY_URL ="http://mwein.konkuk.ac.kr/common/user/login.do";
+    val SUCCESS_LOGIN_URL = "https://mwein.konkuk.ac.kr/index.do"
+    val NOTICE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findUseInfo.do"
+    val FIRST_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do"
+    val FIND_TABLE_URL = "http://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do";
     lateinit var user_id:String
     lateinit var user_pw:String
     lateinit var mWebView:WebView
@@ -31,12 +36,15 @@ class MainActivity : AppCompatActivity() {
         init_variable()
         init_tab()
         login()
+        access()
         parsing_data()
     }
     fun init_variable(){
         var intent = intent;
-        user_id = intent.getStringExtra("user_id")
-        user_pw = intent.getStringExtra("user_pw")
+        //user_id = intent.getStringExtra("user_id")
+        //user_pw = intent.getStringExtra("user_pw")
+        user_id = "rlat302"
+        user_pw = "tjdgjs789"
         mWebView = findViewById(R.id.background_webview)
         WebSetting = mWebView.settings;
         mWebView.addJavascriptInterface(MyJavaScriptInterface(this),"android")
@@ -47,10 +55,26 @@ class MainActivity : AppCompatActivity() {
                     view!!.loadUrl(script);
                 }
                 if(url.equals(SUCCESS_LOGIN_URL)){
+                    var script = access_script()
+                    view!!.loadUrl(script)
+                }
+                if(url.equals(NOTICE_URL)){
+                    view!!.loadUrl(go_reserve_tab_script())
+                }
+                if(url.equals(FIRST_RESERVE_URL)){
+                    Log.v("aaa", select_all_script())
+                    view!!.loadUrl(select_all_script())
+                }
+                /*if(url.equals(FIND_TABLE_URL)){
+                    //view!!.loadUrl(show_button_click())
                     view!!.loadUrl(parsing_building());
                     view!!.loadUrl(parsing_date())
                     view!!.loadUrl(parsing_table())
-                }
+                }*/
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                Log.v("url",url)
             }
         }
         WebSetting.javaScriptEnabled = true;
@@ -67,8 +91,13 @@ class MainActivity : AppCompatActivity() {
         mWebView.loadUrl(ENTRY_URL)
         Toast.makeText(applicationContext,"로그인에 성공하였습니다",Toast.LENGTH_SHORT).show()
     }
-    fun parsing_data(){
+    fun access(){
         mWebView.loadUrl(SUCCESS_LOGIN_URL)
+        mWebView.loadUrl(NOTICE_URL)
+        mWebView.loadUrl(FIRST_RESERVE_URL)
+    }
+    fun parsing_data(){
+        mWebView.loadUrl(FIND_TABLE_URL)
         set_updatetime()
     }
     fun set_updatetime(){

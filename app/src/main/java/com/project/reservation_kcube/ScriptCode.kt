@@ -5,9 +5,34 @@ fun login_script(user_id:String,user_pw:String):String{
             "document.getElementsByName('userId')[0].value = '"+ user_id + "';"+
             "document.getElementsByName('pw')[0].value = '"+user_pw+"';"+
             "document.getElementById('loginBtn').click();"+
-            "window.android.onUrlChange(window.location.href);"+
+            //"window.android.onUrlChange(window.location.href);"+
             "};"+
             "afterLoad();";
+}
+fun show_button_click():String{
+    return "javascript:function click_search(){" +
+            "document.getElementById('searchBtn').click()" +
+            "};" +
+            "click_search();"
+}
+fun access_script():String{
+    return "javascript:function access() {" +
+            "document.getElementsByClassName('kcube_box')[0].getElementsByTagName('a')[0].click()"+
+            "};"+
+            "access();";
+}
+fun go_reserve_tab_script():String{
+    return "javascript:function go_reserve() {" +
+        "document.getElementsByClassName('tab_style li4')[0].getElementsByTagName('li')[1].getElementsByTagName('a')[0].click()"+
+                "};"+
+                "go_reserve();";
+}
+fun select_all_script():String{
+    return "javascript:function select_all() {" +
+            "document.getElementById('buildAll').click();"+
+            "document.getElementById('searchBtn').click();"+
+            "};"+
+            "select_all();"
 }
 fun parsing_building(): String {
     return "javascript:function building_parsing(){" +

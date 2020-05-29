@@ -12,7 +12,7 @@ import android.widget.Toast
 
 
 class LoginActivity : AppCompatActivity() {
-    val ENTRY_URL ="https://mwein.konkuk.ac.kr/common/user/login.do?rtnUrl=b58d750fbf5545f5f4baae3e7ae341ede04e949dfc43bbbdb06e08b6703dbf1a333241441b84e41988376ce5965bd888d74f5d50831f0ca83fa3e9f0fce1a911f8dd5aae9b92896cf1f0d04192324c6b74558d1061dbba81fde92d24f92f9f29ddac597fb6e379a6126fd3efced0cc6f06f525bc009bb711abcbe4b30c5f19772dc9bae76065beef1cf442a0edde98dc98efc87783c405374e10d9ee30060a08949fdf09259cab03647325c5d8300efe45bdc038285774d6ffb724d379fd68dc1cbc880dbb9e803db6232157fbc67b44";
+    val ENTRY_URL ="https://mwein.konkuk.ac.kr/common/user/login.do?rtnUrl=b58d750fbf5545f5f4baae3e7ae341ede04e949dfc43bbbdb06e08b6703dbf1a333241441b84e41988376ce5965bd88885ee223f45da2f3072ba774883c6cfcc";
     lateinit var editID: EditText
     lateinit var editPW:EditText
     lateinit var loginButton: Button
