@@ -47,12 +47,12 @@
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
                         android:gravity="right|center">
-                    <Button
+                    <ImageButton
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="5dp"
-                            android:background="@drawable/baseline_refresh_black_18dp"
-                            android:shadowColor="#FFFFFF"
+                            android:src="@drawable/baseline_refresh_black_18dp"
+                            android:background="#FFFFFF"
                             android:layout_toLeftOf="@+id/updtetime_text"/>
                     <TextView
                              android:layout_width="wrap_content"

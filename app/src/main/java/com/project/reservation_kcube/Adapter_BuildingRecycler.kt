@@ -43,11 +43,11 @@ class Adapter_BuildingRecycler(var data:Array<String>)
         }
         if(selectedPosition == p1){
             p0.description.setTypeface(null,Typeface.BOLD)
-            p0.linear.setBackgroundResource(R.drawable.my_background_border)
+            p0.linear.setBackgroundResource(R.drawable.selected_background_border)
         }
         else{
             p0.description.setTypeface(null,Typeface.NORMAL)
-            p0.linear.setBackgroundResource(0)
+            p0.linear.setBackgroundResource(R.drawable.notselected_background_border)
         }
         p0.icon.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {

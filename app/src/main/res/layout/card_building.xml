@@ -5,6 +5,7 @@
               android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
               android:id="@+id/all_linear"
+              android:background="@drawable/notselected_background_border"
               android:orientation="vertical">
     <ImageView android:layout_width="match_parent"
                android:layout_height="0dp"
