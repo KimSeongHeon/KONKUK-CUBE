@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,6 @@ class FragmentTab1: Fragment() {
     lateinit var building_adapter:Adapter_BuildingRecycler
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
-    var scroll_position = 0;
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tab1,container,false);
     }
@@ -57,10 +57,28 @@ class FragmentTab1: Fragment() {
         var json_arr = JSONArray()
         for(i in 0 until value.size){
             try{
-                json_arr.put(i,JSONObject(value[i]))
+                var str = value[i].replace("\\","");
+                str = str.substring(1,str.length-1);
+                json_arr.put(i,JSONObject(str))
             }catch (ex:Exception){
+                Log.e("JSONARRAY",ex.toString());
             }
         }
+        var building_info = HashSet<Int>()
+        var time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
+        var room_info = mutableMapOf<Pair<Int,Int>,Data_roomInfo>()
+        for(i in 0 until json_arr.length()){
+            var jsonObject = json_arr.getJSONObject(i);
+            building_info.add(jsonObject.getString("buildSeq").toInt())
+            var key = Pair(jsonObject.getString("buildSeq").toInt(),jsonObject.getString("roomSeq").toInt())
+            var value = jsonObject.getString("rsvStartHm")
+            if(time_info[key] == null) time_info.put(key, arrayListOf(value))
+            else time_info[key]!!.add(value)
+        }
+        for(i in 0 until building_info.size){
+
+        }
+
     }
     fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)

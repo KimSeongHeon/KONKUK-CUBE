@@ -81,8 +81,8 @@ fun parsing_table():String {
             "console.log(ret[i])"+
             "   } " +
             "for(var i=0;i<arr1.length;i++){" +
-            " ret.push(JSON.stringify(arr[i].getAttribute(\"data-params\")));" +
-            "console.log(JSON.stringify(arr[i].getAttribute(\"data-params\")))"+
+            " ret.push(JSON.stringify(arr1[i].getAttribute(\"data-params\")));" +
+            "console.log(JSON.stringify(arr1[i].getAttribute(\"data-params\")))"+
             "   } " +
             "window.android.get_table(ret);" + "return true"+
             "}"+ "table_parsing()"+ ";";
