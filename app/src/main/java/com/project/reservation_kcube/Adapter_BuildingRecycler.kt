@@ -49,7 +49,7 @@ class Adapter_BuildingRecycler(var data:Array<String>)
             p0.description.setTypeface(null,Typeface.NORMAL)
             p0.linear.setBackgroundResource(R.drawable.notselected_background_border)
         }
-        p0.icon.setOnClickListener(object: View.OnClickListener {
+        p0.linear.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
                 selectedPosition = p1
                 notifyDataSetChanged()

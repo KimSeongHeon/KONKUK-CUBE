@@ -18,8 +18,11 @@ import org.json.JSONObject
 class FragmentTab1: Fragment() {
     lateinit var building_recycler:RecyclerView
     lateinit var date_recycler:RecyclerView
+    lateinit var  date_adapter:Adapter_DateRecycler
+    lateinit var building_adapter:Adapter_BuildingRecycler
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
+    var scroll_position = 0;
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tab1,container,false);
     }
@@ -35,7 +38,7 @@ class FragmentTab1: Fragment() {
     fun dispay_building(value:Array<String>){
         Building_data = value;
         val where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
-        val building_adapter = Adapter_BuildingRecycler(value)
+        building_adapter = Adapter_BuildingRecycler(value)
         building_recycler.layoutManager = where_layoutManager
         building_recycler.adapter = building_adapter
         building_adapter.notifyDataSetChanged()
@@ -44,7 +47,7 @@ class FragmentTab1: Fragment() {
         Date_data = value;
         top_date_textview.text= value[0]
         val when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
-        val date_adapter = Adapter_DateRecycler(value)
+        date_adapter = Adapter_DateRecycler(value,this)
         date_recycler.layoutManager = when_layoutManager
         date_recycler.adapter = date_adapter
         date_adapter.notifyDataSetChanged()

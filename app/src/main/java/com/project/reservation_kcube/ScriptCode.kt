@@ -1,5 +1,7 @@
 package com.project.reservation_kcube
 
+import android.util.Log
+
 fun login_script(user_id:String,user_pw:String):String{
     return "javascript:function afterLoad() {" +
             "document.getElementsByName('userId')[0].value = '"+ user_id + "';"+
@@ -29,11 +31,22 @@ fun go_reserve_tab_script():String{
 }
 fun select_all_script():String{
     return "javascript:function select_all() {" +
-            "document.getElementById('buildAll').click();"+
-            "document.getElementById('searchBtn').click();"+
+            "if(document.getElementsByClassName('sel-result-box__wrap show').length == 0){"+
+            "document.getElementById('buildAll').click();" +
+            "document.getElementById('searchBtn').click(); console.log(\"In if\")}" +
+            ""+
+            //"else {document.getElementById('todayBtn').click();}"+
             "};"+
             "select_all();"
 }
+/*fun temp():String{
+    return "javascript:function a(){\n" +
+            "    setTimeout(function(){\n" +
+            "        document.getElementById('buildAll').click();},3000);\n" +
+            "    setTimeout(function(){\n" +
+            "        document.getElementById('searchBtn').click();},6000);\n" +
+            "};a()"
+}*/
 fun parsing_building(): String {
     return "javascript:function building_parsing(){" +
             "var building = document.getElementsByClassName(\"lental-able\")[0];" +
@@ -73,4 +86,20 @@ fun parsing_table():String {
             "   } " +
             "window.android.get_table(ret);" + "return true"+
             "}"+ "table_parsing()"+ ";";
+}
+fun update_date_script(index:String):String{
+    Log.v("index",index)
+    return " javascript: function update_date(){\n" +
+            "    const selectEl = document.querySelector(\"#ymdSelect\");\n" +
+            "    const optionEls = selectEl.querySelectorAll(\"option\");\n" +
+            "    \n" +
+            "    selectEl.value = optionEls[${index}].value;\n" +
+            "    if (\"createEvent\" in document) {\n" +
+            "    \tconst evt = document.createEvent(\"HTMLEvents\");\n" +
+            "    \tevt.initEvent(\"change\", false, true);\n" +
+            "    \tselectEl.dispatchEvent(evt);\n" +
+            "    } else {\n" +
+            "    \tselectEl.fireEvent(\"onchange\");\n" +
+            "    }\n"+
+            "}update_date();"
 }
