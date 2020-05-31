@@ -65,11 +65,11 @@ class MainActivity : AppCompatActivity() {
                     if(!load_check) {//첫번째 로드 시
                         view!!.loadUrl(select_all_script())
                         view!!.loadUrl(update_date_script("0"))
-                        view!!.loadUrl(parsing_building())
-                        view!!.loadUrl(parsing_date())
                         load_check = true;
                     }
                     else{
+                        view!!.loadUrl(parsing_building())
+                        view!!.loadUrl(parsing_date())
                         view!!.loadUrl(parsing_table())
                     }
                 }
@@ -86,17 +86,15 @@ class MainActivity : AppCompatActivity() {
         var bottomNavigation = findViewById<BottomNavigationView>(R.id.navigationView)
         bottomNavigation.setOnNavigationItemSelectedListener(object:ItemClickListener(fragmentManager,fragmentTab1,fragmentTab2,fragmentTab3,fragmentTab4){})
     }
-    fun init_adapter(){
-    }
     fun login(){
         Log.v("fun login","called")
         mWebView.loadUrl(ENTRY_URL)
         Toast.makeText(applicationContext,"로그인에 성공하였습니다",Toast.LENGTH_SHORT).show()
     }
     fun access(){
-        mWebView.loadUrl(SUCCESS_LOGIN_URL)
-        mWebView.loadUrl(NOTICE_URL)
-        mWebView.loadUrl(FIRST_RESERVE_URL)
+        //mWebView.loadUrl(SUCCESS_LOGIN_URL)
+        //mWebView.loadUrl(NOTICE_URL)
+        //mWebView.loadUrl(FIRST_RESERVE_URL)
     }
     fun parsing_data(){
         //mWebView.loadUrl(FIND_TABLE_URL)

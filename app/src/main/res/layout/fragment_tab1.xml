@@ -91,6 +91,7 @@
                 android:background="#5C3D3B3B"/>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/tab1_content_main" />
+    <include layout="@layout/tab1_content_main"
+    android:id="@+id/include_view"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -35,7 +35,7 @@ class MyJavaScriptInterface(context:Context){
     }
     @JavascriptInterface
     fun get_table(value:Array<String>){
-        Log.v("get_table",value.get(1).toString())
+        Log.v("get_table",value.size.toString())
         Thread(object :Runnable{
             override fun run() {
                 (mcontext as MainActivity).runOnUiThread(object :Runnable{

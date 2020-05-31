@@ -49,12 +49,15 @@ class Adapter_DateRecycler(var data:Array<String>,var fragmentTab1: FragmentTab1
         }
         p0.date.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
+                fragmentTab1.date_recyclerview_scroll = fragmentTab1.when_layoutManager.findFirstCompletelyVisibleItemPosition()
                 selectedPosition = p1
                 fragmentTab1.building_adapter.selectedPosition = 0;
                 fragmentTab1.building_recycler.smoothScrollToPosition(fragmentTab1.building_adapter.selectedPosition)
                 (context as MainActivity).date_index = p1;
                 (context as MainActivity).mWebView.loadUrl(update_date_script(p1.toString()))
                 fragmentTab1.building_adapter.notifyDataSetChanged()
+                (context as MainActivity).set_updatetime()
+                fragmentTab1.setUpdateTime()
                 notifyDataSetChanged()
             }
         })

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.LinearLayout
 import com.project.reservation_kcube.MainActivity.Companion.update_time
 import kotlinx.android.synthetic.main.fragment_tab1.*
 import org.json.JSONArray
@@ -23,6 +24,9 @@ class FragmentTab1: Fragment() {
     lateinit var building_adapter:Adapter_BuildingRecycler
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
+    var date_recyclerview_scroll = 0;
+    var when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
+    var where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tab1,container,false);
     }
@@ -36,24 +40,28 @@ class FragmentTab1: Fragment() {
         setToolbar()
     }
     fun dispay_building(value:Array<String>){
+        where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         Building_data = value;
-        val where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         building_adapter = Adapter_BuildingRecycler(value)
         building_recycler.layoutManager = where_layoutManager
         building_recycler.adapter = building_adapter
         building_adapter.notifyDataSetChanged()
     }
     fun display_date(value:Array<String>){
+        when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         Date_data = value;
         top_date_textview.text= value[0]
-        val when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         date_adapter = Adapter_DateRecycler(value,this)
         date_recycler.layoutManager = when_layoutManager
         date_recycler.adapter = date_adapter
+        when_layoutManager.scrollToPosition(date_recyclerview_scroll)
         date_adapter.notifyDataSetChanged()
         setUpdateTime()
     }
     fun display_table(value:Array<String>){
+        var area:View = view!!.findViewById(R.id.include_view)
+        var contents = area.findViewById<LinearLayout>(R.id.content_linearlayout)
+        contents.removeAllViews()
         var json_arr = JSONArray()
         for(i in 0 until value.size){
             try{
@@ -75,8 +83,10 @@ class FragmentTab1: Fragment() {
             if(time_info[key] == null) time_info.put(key, arrayListOf(value))
             else time_info[key]!!.add(value)
         }
+        Log.v("building",building_info.size.toString())
         for(i in 0 until building_info.size){
-
+            var layout = building_layout((context as MainActivity).applicationContext)
+            contents.addView(layout)
         }
 
     }

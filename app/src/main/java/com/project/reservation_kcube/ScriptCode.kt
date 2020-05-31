@@ -59,6 +59,7 @@ fun parsing_building(): String {
             "building_parsing();"
 }
 fun parsing_date():String{
+    Log.v("parsing_date", "parsing_date");
     return    "javascript:function date_parsing(){"+
             "var date = document.getElementById(\"ymdSelect\");"+
             "var option = date.getElementsByTagName(\"option\");"+
