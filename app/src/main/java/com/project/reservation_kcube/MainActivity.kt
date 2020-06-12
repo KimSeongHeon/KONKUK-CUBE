@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    val TEST_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do?paramStart=paramStart&rsvYmd=2020.01.15&buildAll=Y&_buildAll=on&_buildList[1]=on&_buildList[2]=on&_buildList[3]=on&_buildList[4]=on&_buildList[5]=on&_buildList[6]=on"
     val ENTRY_URL ="https://mwein.konkuk.ac.kr/common/user/login.do";
     val SUCCESS_LOGIN_URL = "https://mwein.konkuk.ac.kr/index.do"
     val NOTICE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findUseInfo.do"
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         mWebView.addJavascriptInterface(MyJavaScriptInterface(this),"android")
         mWebView.webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {
+                if(url.equals(TEST_URL)){
+                    view!!.loadUrl(parsing_building())
+                    view!!.loadUrl(parsing_date())
+                    view!!.loadUrl(parsing_table())
+                }
                 if(url.equals(ENTRY_URL)){
                     var script = login_script(user_id,user_pw);
                     view!!.loadUrl(script);

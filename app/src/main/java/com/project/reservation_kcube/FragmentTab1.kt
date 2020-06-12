@@ -17,24 +17,34 @@ import kotlinx.android.synthetic.main.fragment_tab1.*
 import org.json.JSONArray
 import org.json.JSONObject
 
+
+
+
+
 class FragmentTab1: Fragment() {
     lateinit var building_recycler:RecyclerView
     lateinit var date_recycler:RecyclerView
+    lateinit var arcodian_recycler:RecyclerView
     lateinit var  date_adapter:Adapter_DateRecycler
     lateinit var building_adapter:Adapter_BuildingRecycler
+    lateinit var arcodian_adapter:Adapter_ArcodianRecycler
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
     var date_recyclerview_scroll = 0;
     var when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
     var where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
+    var arcodian_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.v("onView","crated")
         return inflater.inflate(R.layout.fragment_tab1,container,false);
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        Log.v("onAcitivity","crated")
         super.onActivityCreated(savedInstanceState)
         building_recycler = view!!.findViewById(R.id.where_recyclerview)
         date_recycler = view!!.findViewById(R.id.when_recyclerview)
+        var parent = view!!.findViewById<View>(R.id.include_view)
+        arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
         if(Building_data.size != 0) dispay_building(Building_data)
         if(Date_data.size != 0) display_date(Date_data)
         setToolbar()
@@ -50,7 +60,7 @@ class FragmentTab1: Fragment() {
     fun display_date(value:Array<String>){
         when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         Date_data = value;
-        top_date_textview.text= value[0]
+        top_date_textview.text= value[(context as MainActivity).date_index]
         date_adapter = Adapter_DateRecycler(value,this)
         date_recycler.layoutManager = when_layoutManager
         date_recycler.adapter = date_adapter
@@ -59,9 +69,6 @@ class FragmentTab1: Fragment() {
         setUpdateTime()
     }
     fun display_table(value:Array<String>){
-        var area:View = view!!.findViewById(R.id.include_view)
-        var contents = area.findViewById<LinearLayout>(R.id.content_linearlayout)
-        contents.removeAllViews()
         var json_arr = JSONArray()
         for(i in 0 until value.size){
             try{
@@ -73,21 +80,42 @@ class FragmentTab1: Fragment() {
             }
         }
         var building_info = HashSet<Int>()
+        var room_num_info = mutableMapOf<Int,HashSet<Int>>()
         var time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
         var room_info = mutableMapOf<Pair<Int,Int>,Data_roomInfo>()
         for(i in 0 until json_arr.length()){
             var jsonObject = json_arr.getJSONObject(i);
-            building_info.add(jsonObject.getString("buildSeq").toInt())
-            var key = Pair(jsonObject.getString("buildSeq").toInt(),jsonObject.getString("roomSeq").toInt())
+            var building = jsonObject.getString("buildSeq").toInt();
+            var room_num = jsonObject.getString("roomSeq").toInt()
+            building_info.add(building)
+            if(room_num_info.containsKey(building)) room_num_info[building]!!.add(room_num);
+            else room_num_info.put(building, hashSetOf(room_num));
+            var key = Pair(building,room_num)
             var value = jsonObject.getString("rsvStartHm")
             if(time_info[key] == null) time_info.put(key, arrayListOf(value))
             else time_info[key]!!.add(value)
         }
         Log.v("building",building_info.size.toString())
-        for(i in 0 until building_info.size){
+        arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray())
+        arcodian_recycler.layoutManager = arcodian_layoutManager
+        arcodian_recycler.adapter = arcodian_adapter
+        arcodian_adapter.notifyDataSetChanged()
+        /*for(i in 0 until building_info.size){
             var layout = building_layout((context as MainActivity).applicationContext)
+            var contents_area = layout.findViewById<LinearLayout>(R.id.room_linearlayout);
+            layout.findViewById<TextView>(R.id.building_title_text).setOnClickListener {
+                if(contents_area.visibility == View.GONE) {
+                    contents_area.animate().alpha(1.0f).setDuration(1000)
+                    contents_area.visibility = View.VISIBLE
+                }
+                else {
+                    contents_area.animate().alpha(0.0f).setDuration(2000)
+                    contents_area.visibility = View.GONE
+                }
+            }
             contents.addView(layout)
-        }
+        }*/
 
     }
     fun setToolbar(){

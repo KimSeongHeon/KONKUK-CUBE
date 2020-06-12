@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="100dp"
-              android:layout_height="100dp">
-    <Button android:layout_width="match_parent" android:layout_height="match_parent"/>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/viewgroup_layout"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="left|center"
+            android:background="#F1EBEB"
+            android:paddingLeft="10dp"
+            android:textStyle="bold"
+            android:id="@+id/building_title_text"
+            android:text="건물"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:background="#D85A5A"
+            android:text="content"
+            android:id="@+id/roomlist_linearlayout"
+            android:animateLayoutChanges="true">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="메렁"/>
+    </LinearLayout>
 </LinearLayout>
