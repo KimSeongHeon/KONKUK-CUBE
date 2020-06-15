@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
     var date_index = 0;
     var load_check = false;
     val fragmentManager = supportFragmentManager;
-    val fragmentTab1:FragmentTab1 = FragmentTab1()
-    val fragmentTab2:FragmentTab2 = FragmentTab2()
-    val fragmentTab3:FragmentTab3 = FragmentTab3();
-    val fragmentTab4:FragmentTab4 = FragmentTab4()
     companion object{
         lateinit var update_time:String
+        var fragmentTab1:FragmentTab1? = FragmentTab1()
+        var fragmentTab2:FragmentTab2? = null
+        var fragmentTab3:FragmentTab3? = null
+        var fragmentTab4:FragmentTab4? = null
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,10 +87,9 @@ class MainActivity : AppCompatActivity() {
         WebSetting.javaScriptEnabled = true;
     }
     fun init_tab(){
-        var transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, fragmentTab1).commitAllowingStateLoss()
         var bottomNavigation = findViewById<BottomNavigationView>(R.id.navigationView)
-        bottomNavigation.setOnNavigationItemSelectedListener(object:ItemClickListener(fragmentManager,fragmentTab1,fragmentTab2,fragmentTab3,fragmentTab4){})
+        bottomNavigation.setOnNavigationItemSelectedListener(object:ItemClickListener(fragmentManager){})
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, fragmentTab1!!).commit()
     }
     fun login(){
         Log.v("fun login","called")

@@ -3,6 +3,7 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
+import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
 
 class MyJavaScriptInterface(context:Context){
     var mcontext:Context = context;
@@ -12,7 +13,7 @@ class MyJavaScriptInterface(context:Context){
             override fun run() {
                 (mcontext as MainActivity).runOnUiThread(object :Runnable{
                     override fun run() {
-                        (mcontext as MainActivity).fragmentTab1.dispay_building(value)
+                        fragmentTab1!!.dispay_building(value)
                     }
                 })
             }
@@ -27,7 +28,7 @@ class MyJavaScriptInterface(context:Context){
             override fun run() {
                 (mcontext as MainActivity).runOnUiThread(object :Runnable{
                     override fun run() {
-                        (mcontext as MainActivity).fragmentTab1.display_date(value)
+                        fragmentTab1!!.display_date(value)
                     }
                 })
             }
@@ -40,7 +41,7 @@ class MyJavaScriptInterface(context:Context){
             override fun run() {
                 (mcontext as MainActivity).runOnUiThread(object :Runnable{
                     override fun run() {
-                        (mcontext as MainActivity).fragmentTab1.display_table(value)
+                        fragmentTab1!!.display_table(value)
                     }
                 })
             }

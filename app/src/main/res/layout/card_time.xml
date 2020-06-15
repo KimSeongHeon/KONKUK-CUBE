@@ -5,6 +5,7 @@
               android:background="@drawable/notselected_background_border"
               android:layout_marginLeft="5dp"
               android:layout_marginRight="5dp"
+              android:id="@+id/time_all_linearlayout"
               android:orientation="vertical">
     <TextView
             android:layout_width="match_parent"

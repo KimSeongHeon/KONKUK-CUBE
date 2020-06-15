@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 
 
 class building_layout : LinearLayout {
-
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context)
     }

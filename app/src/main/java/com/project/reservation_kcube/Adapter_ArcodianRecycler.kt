@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<Int,HashSet<Int>>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>): RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
+class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<Int,HashSet<Int>>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var fragment1:FragmentTab1): RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
     var selectedPosition = -1;
     var selectedItems = SparseBooleanArray()
     lateinit var context: Context
@@ -68,7 +68,7 @@ class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<
         }
         fun onBind(position:Int){
             title.setOnClickListener(this)
-            room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position])
+            room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position],fragment1)
             rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
             rcyview.adapter = room_adapter
             list.visibility = View.VISIBLE

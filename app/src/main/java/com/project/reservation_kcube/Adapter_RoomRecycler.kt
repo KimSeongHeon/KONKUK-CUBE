@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var building:Int)
+class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var building:Int,var fragement1:FragmentTab1)
     : RecyclerView.Adapter<Adapter_RoomRecycler.ViewHolder>() {
     lateinit var time_adapter:Adapter_TimeRecycler
     lateinit var context: Context
@@ -32,7 +32,7 @@ class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int
             rcyview = itemView.findViewById(R.id.room_recyclerview)
         }
         fun onBind(position: Int){
-            time_adapter = Adapter_TimeRecycler(time_info[Pair(building,data[position])]!!.toTypedArray())
+            time_adapter = Adapter_TimeRecycler(time_info[Pair(building,data[position])]!!.toTypedArray(),fragement1)
             rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
             rcyview.adapter = time_adapter
         }

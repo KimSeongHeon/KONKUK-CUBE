@@ -11,8 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.project.reservation_kcube.MainActivity.Companion.update_time
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_tab1.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -45,24 +48,25 @@ class FragmentTab1: Fragment() {
         date_recycler = view!!.findViewById(R.id.when_recyclerview)
         var parent = view!!.findViewById<View>(R.id.include_view)
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
+        Log.v("building data",Building_data.size.toString())
+        Log.v("date_data",Date_data.size.toString())
         if(Building_data.size != 0) dispay_building(Building_data)
         if(Date_data.size != 0) display_date(Date_data)
+        init_variable()
         setToolbar()
     }
     fun dispay_building(value:Array<String>){
         where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
-        Building_data = value;
-        building_adapter = Adapter_BuildingRecycler(value)
         building_recycler.layoutManager = where_layoutManager
+        building_adapter = Adapter_BuildingRecycler(value)
         building_recycler.adapter = building_adapter
         building_adapter.notifyDataSetChanged()
     }
     fun display_date(value:Array<String>){
         when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
-        Date_data = value;
         top_date_textview.text= value[(context as MainActivity).date_index]
-        date_adapter = Adapter_DateRecycler(value,this)
         date_recycler.layoutManager = when_layoutManager
+        date_adapter = Adapter_DateRecycler(value,this)
         date_recycler.adapter = date_adapter
         when_layoutManager.scrollToPosition(date_recyclerview_scroll)
         date_adapter.notifyDataSetChanged()
@@ -97,7 +101,7 @@ class FragmentTab1: Fragment() {
         }
         Log.v("building",building_info.size.toString())
         arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
-        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info)
+        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info,this)
         arcodian_recycler.layoutManager = arcodian_layoutManager
         arcodian_recycler.adapter = arcodian_adapter
         arcodian_adapter.notifyDataSetChanged()
@@ -132,6 +136,22 @@ class FragmentTab1: Fragment() {
     fun setUpdateTime(){
         updtetime_text.text = update_time + " 업데이트 됨"
     }
-
-
+    fun init_variable(){
+        var sliding_layout = view!!.findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
+        var lower_linear = view!!.findViewById<LinearLayout>(R.id.lower_linear)
+        var dragView = view!!.findViewById<LinearLayout>(R.id.dragView)
+        var title = view!!.findViewById<FrameLayout>(R.id.reserve_title_linear)
+        var hide_button = view!!.findViewById<Button>(R.id.btn_hide)
+        sliding_layout.setOnDragListener(null)
+        sliding_layout.isTouchEnabled = false
+        dragView.setOnClickListener(null)
+        dragView.setOnDragListener(null)
+        lower_linear.setOnClickListener(null)
+        lower_linear.setOnDragListener(null)
+        title.setOnDragListener(null)
+        hide_button.setOnClickListener {
+            sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+            dragView.visibility = View.GONE
+        }
+    }
 }
