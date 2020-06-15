@@ -97,7 +97,7 @@ class FragmentTab1: Fragment() {
         }
         Log.v("building",building_info.size.toString())
         arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
-        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray())
+        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info)
         arcodian_recycler.layoutManager = arcodian_layoutManager
         arcodian_recycler.adapter = arcodian_adapter
         arcodian_adapter.notifyDataSetChanged()

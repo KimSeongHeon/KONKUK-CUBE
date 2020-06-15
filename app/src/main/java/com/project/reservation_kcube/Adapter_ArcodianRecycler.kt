@@ -2,6 +2,7 @@ package com.project.reservation_kcube
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.util.SparseBooleanArray
@@ -11,10 +12,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class Adapter_ArcodianRecycler(var data:Array<Int>): RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
+class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<Int,HashSet<Int>>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>): RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
     var selectedPosition = -1;
     var selectedItems = SparseBooleanArray()
-    lateinit var context: Context;
+    lateinit var context: Context
+    lateinit var room_adapter:Adapter_RoomRecycler
     interface OnItemClickListner {
         fun OnItemClick(holder: Adapter_ArcodianRecycler.ViewHolder, view: View, data: Int, position: Int)
     }
@@ -28,7 +30,7 @@ class Adapter_ArcodianRecycler(var data:Array<Int>): RecyclerView.Adapter<Adapte
         return data.size
     }
     override fun onBindViewHolder(p0: Adapter_ArcodianRecycler.ViewHolder, p1: Int) {
-        p0.onBind()
+        p0.onBind(p1)
         Log.v("p1",p1.toString())
         p0.changeVisibillity(selectedItems.get(p1))
         p0.title.text = convertToname(data[p1]);
@@ -36,9 +38,11 @@ class Adapter_ArcodianRecycler(var data:Array<Int>): RecyclerView.Adapter<Adapte
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener {
         var title: TextView
         var list: LinearLayout
+        var rcyview:RecyclerView
         init{
             title = itemView.findViewById(R.id.building_title_text)
             list = itemView.findViewById(R.id.roomlist_linearlayout)
+            rcyview = itemView.findViewById(R.id.room_recyclerview)
             title.setOnClickListener{
                 val position = adapterPosition;
                 ItemClickListener?.OnItemClick(this,it,data[position],position)
@@ -62,8 +66,11 @@ class Adapter_ArcodianRecycler(var data:Array<Int>): RecyclerView.Adapter<Adapte
                 }
             }
         }
-        fun onBind(){
+        fun onBind(position:Int){
             title.setOnClickListener(this)
+            room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position])
+            rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            rcyview.adapter = room_adapter
             list.visibility = View.VISIBLE
         }
         fun changeVisibillity(isExpanded: Boolean){

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="100dp"
+              android:layout_height="70dp"
+              android:background="@drawable/notselected_background_border"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:orientation="vertical">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="09:00"
+            android:id="@+id/clock_textview"
+            android:layout_weight="2.2"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/divider"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#5C3D3B3B"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:id="@+id/time_textview"
+            android:text="최대 3시간"
+            android:layout_weight="1"
+    />
+
+</LinearLayout>

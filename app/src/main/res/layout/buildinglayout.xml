@@ -11,7 +11,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:gravity="left|center"
+            android:gravity="center"
             android:background="#F1EBEB"
             android:paddingLeft="10dp"
             android:textStyle="bold"
@@ -19,15 +19,17 @@
             android:text="건물"/>
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#D85A5A"
             android:text="content"
             android:id="@+id/roomlist_linearlayout"
+            android:background="@drawable/make_border"
             android:animateLayoutChanges="true">
-        <TextView
+        <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="메렁"/>
+                android:id="@+id/room_recyclerview">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </LinearLayout>
