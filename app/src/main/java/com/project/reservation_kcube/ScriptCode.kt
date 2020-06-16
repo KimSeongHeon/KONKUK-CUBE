@@ -104,3 +104,32 @@ fun update_date_script(index:String):String{
             "    }\n"+
             "}update_date();"
 }
+fun click_reserve(time:String,info:Pair<Int,Int>):String{
+    var building = info.first
+    var room = info.second
+    var time  = time
+    return "javascript:(function reserve(){" +
+            "var b = `.enable.range.reservBtn[data-params*='\"buildSeq\":\"${building}\"'][data-params*='\"roomSeq\":\"${room}\"'][data-params*='\"rsvStartHm\":\"${time}\"']`;" +
+            "var a = document.querySelector(b); console.log(b, a);" +
+            "a.click();})()"
+}
+fun parsing_reserve_data():String{
+    /*
+    *   return    "javascript:function date_parsing(){"+
+            "var date = document.getElementById(\"ymdSelect\");"+
+            "var option = date.getElementsByTagName(\"option\");"+
+            "var arr = [];"+
+    "for(var i=0;i<option.length;i++){"+
+            "arr.push(option[i].text);"+
+            "}"+"window.android.get_date(arr);" + "return true;"+
+            "}"+"date_parsing();"
+            */
+    return "javascript:function temp(){" +
+            "var date = document.getElementById('dateNm').innerText;" +
+            "var location = document.getElementById('cubeNm').innerText;" +
+            "var location_info = document.getElementById('cubeInfo').innerText;" +
+            "var name = document.getElementsByTagName('tbody')[0].getElementsByClassName('last')[0].innerText;"+
+            "console.log(name);" +
+            "window.android.show_reserve_data(date,location,location_info,name); return true" +
+            "}temp()"
+}

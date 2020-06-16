@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import com.project.reservation_kcube.MainActivity.Companion.update_time
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_tab1.*
+import kotlinx.android.synthetic.main.up_reserve.view.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -122,6 +123,14 @@ class FragmentTab1: Fragment() {
         }*/
 
     }
+    fun display_reserve_data(date:String,location:String,location_info:String,name:String){
+        Log.v("display","reserve_data")
+        var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
+        parent.name_text.text = name
+        parent.cube_text.text = location
+        parent.cube_info_text.text = location_info
+        parent.date_text.text = date
+    }
     fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
         var activity = activity as MainActivity
@@ -130,7 +139,6 @@ class FragmentTab1: Fragment() {
             override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
                 var params:WindowManager.LayoutParams = activity!!.window.attributes
             }
-
         })
     }
     fun setUpdateTime(){
@@ -138,20 +146,21 @@ class FragmentTab1: Fragment() {
     }
     fun init_variable(){
         var sliding_layout = view!!.findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
-        var lower_linear = view!!.findViewById<LinearLayout>(R.id.lower_linear)
-        var dragView = view!!.findViewById<LinearLayout>(R.id.dragView)
-        var title = view!!.findViewById<FrameLayout>(R.id.reserve_title_linear)
-        var hide_button = view!!.findViewById<Button>(R.id.btn_hide)
+        var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
+        var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
+        var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
+        var hide_button = parent.findViewById<Button>(R.id.btn_hide)
         sliding_layout.setOnDragListener(null)
         sliding_layout.isTouchEnabled = false
-        dragView.setOnClickListener(null)
-        dragView.setOnDragListener(null)
+        parent.setOnClickListener(null)
+        parent.setOnDragListener(null)
         lower_linear.setOnClickListener(null)
         lower_linear.setOnDragListener(null)
         title.setOnDragListener(null)
         hide_button.setOnClickListener {
             sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
-            dragView.visibility = View.GONE
+            parent.visibility = View.GONE
+            (context as MainActivity).mWebView.loadUrl((context as MainActivity).FIRST_RESERVE_URL)
         }
     }
 }

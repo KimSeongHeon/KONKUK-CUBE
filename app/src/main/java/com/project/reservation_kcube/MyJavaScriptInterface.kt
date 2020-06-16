@@ -48,4 +48,17 @@ class MyJavaScriptInterface(context:Context){
         }).start()
 
     }
+    @JavascriptInterface
+    fun show_reserve_data(date:String,location:String,location_info:String,name:String){
+        Log.v("show_Reserve_data",date + location + location_info + name)
+        Thread(object:Runnable{
+            override fun run(){
+                (mcontext as MainActivity).runOnUiThread(object : Runnable{
+                    override fun run(){
+                        fragmentTab1!!.display_reserve_data(date,location,location_info,name)
+                    }
+                })
+            }
+        }).start()
+    }
 }

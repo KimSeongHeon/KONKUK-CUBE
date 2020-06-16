@@ -32,7 +32,7 @@ class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int
             rcyview = itemView.findViewById(R.id.room_recyclerview)
         }
         fun onBind(position: Int){
-            time_adapter = Adapter_TimeRecycler(time_info[Pair(building,data[position])]!!.toTypedArray(),fragement1)
+            time_adapter = Adapter_TimeRecycler(time_info[Pair(building,data[position])]!!.toTypedArray(),fragement1,Pair(building,data[position]))
             rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
             rcyview.adapter = time_adapter
         }

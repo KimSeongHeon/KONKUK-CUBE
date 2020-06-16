@@ -1,16 +1,19 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/dragView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical">
+        android:visibility="gone"
+        android:orientation="vertical" >
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/reserve_title_linear"
             android:orientation="horizontal">
         <Button
-                android:layout_width="50dp"
+                android:id="@+id/btn_hide"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:text="hide"
@@ -23,18 +26,130 @@
                   android:text="예약하기"
                   android:layout_gravity="center"
                   android:gravity="center"/>
-
     </FrameLayout>
-    <LinearLayout
+    <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFCCCC">
-        <ImageView
+            android:layout_height="2dp"
+            android:id="@+id/divider"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#5C3D3B3B"/>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E0E0E0">
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:orientation="vertical"
+                android:id="@+id/lower_linear"
+                android:background="#E0E0E0">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/info1_linear"
+                android:layout_marginTop="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="35dp"
+                          android:orientation="horizontal"
+                          android:gravity="left"
+                          android:layout_marginTop="5dp"
+                          android:id="@+id/info1_title_linear">
+                <ImageView android:layout_width="50dp"
+                           android:layout_height="match_parent"
+                           android:src="@drawable/green_circle_num1"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:text="기본 정보"
+                          android:gravity="center_vertical"
+                          android:textSize="17dp"
+                          android:textStyle="bold"
+                          android:paddingLeft="5dp"/>
+            </LinearLayout>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:id="@+id/name_text"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:id="@+id/cube_text"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:id="@+id/cube_info_text"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="3dp"
+                          android:id="@+id/date_text"/>
+
+        </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/info2_linear"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="35dp"
+                              android:orientation="horizontal"
+                              android:gravity="left"
+                              android:layout_marginTop="5dp"
+                              android:id="@+id/info2_title_linear">
+                    <ImageView android:layout_width="50dp"
+                               android:layout_height="match_parent"
+                               android:src="@drawable/green_circle_num2"/>
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:text="시간 선택"
+                              android:gravity="center_vertical"
+                              android:textSize="17dp"
+                              android:textStyle="bold"
+                              android:paddingLeft="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/info3_linear"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="35dp"
+                              android:orientation="horizontal"
+                              android:gravity="left"
+                              android:layout_marginTop="5dp"
+                              android:id="@+id/info3_title_linear">
+                    <ImageView android:layout_width="50dp"
+                               android:layout_height="match_parent"
+                               android:src="@drawable/green_circle_num3"/>
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:text="동반 이용자 추가"
+                              android:gravity="center_vertical"
+                              android:textSize="17dp"
+                              android:textStyle="bold"
+                              android:paddingLeft="5dp"
+                    />
+
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="대여 예약 신청하기"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="#036B3F"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"/>
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

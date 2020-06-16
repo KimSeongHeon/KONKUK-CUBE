@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-class Adapter_TimeRecycler(var data:Array<String>,var fragment:FragmentTab1)
+class Adapter_TimeRecycler(var data:Array<String>,var fragment:FragmentTab1,var info:Pair<Int,Int>)
     : RecyclerView.Adapter<Adapter_TimeRecycler.ViewHolder>(){
     lateinit var context: Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Adapter_TimeRecycler.ViewHolder {
@@ -29,11 +29,14 @@ class Adapter_TimeRecycler(var data:Array<String>,var fragment:FragmentTab1)
         p0.interval.text = "대기"
         p0.all.setOnClickListener{
             Log.v("onclick","click")
+            var dragView = fragment.view!!.findViewById<LinearLayout>(R.id.up_reserve)
             var drag = fragment.view!!.findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
-            var dragView = fragment.view!!.findViewById<LinearLayout>(R.id.dragView)
             Log.v("drag",drag.toString())
             drag.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             dragView.visibility = View.VISIBLE
+            var time = data.get(p1)
+            var script = click_reserve(time,info)
+            (context as MainActivity).mWebView.loadUrl(script)
         }
     }
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){

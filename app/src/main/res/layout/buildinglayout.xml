@@ -10,7 +10,7 @@
         android:layout_marginBottom="30dp">
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:background="#F1EBEB"
             android:paddingLeft="10dp"

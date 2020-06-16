@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     val SUCCESS_LOGIN_URL = "https://mwein.konkuk.ac.kr/index.do"
     val NOTICE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findUseInfo.do"
     val FIRST_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do"
+    val SECOND_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep2.do"
     lateinit var user_id:String
     lateinit var user_pw:String
     lateinit var mWebView:WebView
@@ -78,6 +79,9 @@ class MainActivity : AppCompatActivity() {
                         view!!.loadUrl(parsing_date())
                         view!!.loadUrl(parsing_table())
                     }
+                }
+                if(url.equals(SECOND_RESERVE_URL)){
+                    view!!.loadUrl(parsing_reserve_data())
                 }
             }
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {

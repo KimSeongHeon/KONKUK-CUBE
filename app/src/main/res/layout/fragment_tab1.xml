@@ -105,49 +105,6 @@
     android:id="@+id/include_view"/>
 </android.support.design.widget.CoordinatorLayout>
     <!-- SLIDING LAYOUT -->
-    <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/dragView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:visibility="gone"
-            android:orientation="vertical" >
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/reserve_title_linear"
-                android:orientation="horizontal">
-            <Button
-                    android:id="@+id/btn_hide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:text="hide"
-                    android:textSize="12dp"/>
-            <TextView android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:paddingBottom="8dp"
-                      android:paddingTop="8dp"
-                      android:textStyle="bold"
-                      android:text="예약하기"
-                      android:layout_gravity="center"
-                      android:gravity="center"/>
-
-        </FrameLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/lower_linear"
-                android:background="#FFCCCC">
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_foreground" />
-        </LinearLayout>
-    </LinearLayout>
+  <include layout="@layout/up_reserve"
+  android:id="@+id/up_reserve"/>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
