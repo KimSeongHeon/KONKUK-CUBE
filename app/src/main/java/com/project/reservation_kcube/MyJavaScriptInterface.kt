@@ -3,6 +3,7 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
+import android.widget.Toast
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
 
 class MyJavaScriptInterface(context:Context){
@@ -49,13 +50,38 @@ class MyJavaScriptInterface(context:Context){
 
     }
     @JavascriptInterface
-    fun show_reserve_data(date:String,location:String,location_info:String,name:String){
+    fun show_reserve_data(date:String,location:String,location_info:String,name:String,possible_time:String,purpose:Array<String>,userInfo:String){
         Log.v("show_Reserve_data",date + location + location_info + name)
         Thread(object:Runnable{
             override fun run(){
                 (mcontext as MainActivity).runOnUiThread(object : Runnable{
                     override fun run(){
-                        fragmentTab1!!.display_reserve_data(date,location,location_info,name)
+                        fragmentTab1!!.display_reserve_data(date,location,location_info,name,possible_time,purpose,userInfo)
+                    }
+                })
+            }
+        }).start()
+    }
+    @JavascriptInterface
+    fun show_alert(str:String){
+        Log.v("str",str)
+        Thread(object:Runnable{
+            override fun run(){
+                (mcontext as MainActivity).runOnUiThread(object : Runnable{
+                    override fun run(){
+                        Toast.makeText(mcontext,str,Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }).start()
+    }
+    @JavascriptInterface
+    fun show_friend(s_id:Array<String>,s_name:Array<String>){
+        Thread(object:Runnable{
+            override fun run(){
+                (mcontext as MainActivity).runOnUiThread(object : Runnable{
+                    override fun run(){
+                        fragmentTab1!!.display_friend(s_id,s_name);
                     }
                 })
             }

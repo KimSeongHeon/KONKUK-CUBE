@@ -3,6 +3,7 @@ package com.project.reservation_kcube
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -20,24 +21,30 @@ import kotlinx.android.synthetic.main.fragment_tab1.*
 import kotlinx.android.synthetic.main.up_reserve.view.*
 import org.json.JSONArray
 import org.json.JSONObject
-
-
-
+import kotlin.math.min
 
 
 class FragmentTab1: Fragment() {
     lateinit var building_recycler:RecyclerView
     lateinit var date_recycler:RecyclerView
     lateinit var arcodian_recycler:RecyclerView
+    lateinit var select_time_recycler:RecyclerView
+    lateinit var select_purpose_recycler:RecyclerView
     lateinit var  date_adapter:Adapter_DateRecycler
     lateinit var building_adapter:Adapter_BuildingRecycler
     lateinit var arcodian_adapter:Adapter_ArcodianRecycler
+    lateinit var select_time_adapter:Adapter_SelectTime
+    lateinit var select_purpose_adapter:Adapter_SelectPurpose
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
     var date_recyclerview_scroll = 0;
     var when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
     var where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
     var arcodian_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
+    var select_time_layoutManager = GridLayoutManager(this.context, 2)
+    var select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
+    var successive_time:Double = 0.0
+    var select_clock = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v("onView","crated")
         return inflater.inflate(R.layout.fragment_tab1,container,false);
@@ -47,6 +54,8 @@ class FragmentTab1: Fragment() {
         super.onActivityCreated(savedInstanceState)
         building_recycler = view!!.findViewById(R.id.where_recyclerview)
         date_recycler = view!!.findViewById(R.id.when_recyclerview)
+        select_time_recycler = view!!.findViewById(R.id.select_time_recycler)
+        select_purpose_recycler = view!!.findViewById(R.id.select_purpose_recycler)
         var parent = view!!.findViewById<View>(R.id.include_view)
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
         Log.v("building data",Building_data.size.toString())
@@ -123,13 +132,32 @@ class FragmentTab1: Fragment() {
         }*/
 
     }
-    fun display_reserve_data(date:String,location:String,location_info:String,name:String){
+    fun display_reserve_data(date:String,location:String,location_info:String,name:String,possible_time:String,purpose:Array<String>,userInfo:String){
         Log.v("display","reserve_data")
         var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
         parent.name_text.text = name
         parent.cube_text.text = location
-        parent.cube_info_text.text = location_info
+        parent.cube_info_text.text = location_info.split(',')[0]
         parent.date_text.text = date
+        parent.user_info_text.text = "(1) " + userInfo.split(')')[0] + ')'
+        Log.v("possible_time",possible_time)
+        parent.possible_text.text = "(1) 대여가능 잔여시간 : " + (possible_time.split(":")[1].split("시간")[0].toDouble() + 0.5).toString() + "시간"
+        var remain_time =  (possible_time.split(":")[1].split("시간")[0].toDouble() + 0.5)
+        var time = arrayOf("0.5시간","1시간","1.5시간","2시간","2.5시간","3시간")
+        select_time_layoutManager = GridLayoutManager(this.context,3)
+        select_time_recycler.layoutManager = select_time_layoutManager
+        select_time_adapter = Adapter_SelectTime(time,(min(remain_time,successive_time)/0.5).toInt(),this,select_clock)
+        select_time_recycler.adapter = select_time_adapter
+        select_time_adapter.notifyDataSetChanged()
+        select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
+        select_purpose_recycler.layoutManager = select_purpose_layoutManager
+        select_purpose_adapter = Adapter_SelectPurpose(purpose)
+        select_purpose_recycler.adapter = select_purpose_adapter
+        select_purpose_adapter.notifyDataSetChanged()
+    }
+    fun display_friend(id:Array<String>,name:Array<String>){
+        Log.v("id",id.size.toString())
+        Log.v("name",name.get(0))
     }
     fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
@@ -150,6 +178,7 @@ class FragmentTab1: Fragment() {
         var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
         var hide_button = parent.findViewById<Button>(R.id.btn_hide)
+        var search_view = parent.findViewById<android.support.v7.widget.SearchView>(R.id.search_friend_view)
         sliding_layout.setOnDragListener(null)
         sliding_layout.isTouchEnabled = false
         parent.setOnClickListener(null)
@@ -162,5 +191,29 @@ class FragmentTab1: Fragment() {
             parent.visibility = View.GONE
             (context as MainActivity).mWebView.loadUrl((context as MainActivity).FIRST_RESERVE_URL)
         }
+        search_view.setOnClickListener {
+            search_view.setIconified(false);
+        }
+        search_view.setOnSearchClickListener {
+            (context as MainActivity).mWebView.loadUrl(open_friend_script())
+        }
+        search_view.setOnQueryTextListener(object:android.support.v7.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                Log.v("asf",p0)
+                var query = ""
+                if(p0 == null) query = ""
+                else query = p0
+                (context as MainActivity).mWebView.loadUrl(Search_friend_script(query))
+                search_view.setQuery("",false)
+                search_view.clearFocus()
+                search_view.onActionViewCollapsed()
+                return true;
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+        })
+
     }
 }

@@ -46,7 +46,8 @@
                 android:background="#E0E0E0">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:id="@+id/info1_linear"
                 android:layout_marginTop="10dp"
                 android:background="#FFFFFF"
@@ -70,25 +71,63 @@
             </LinearLayout>
                 <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:layout_margin="3dp"
-                          android:id="@+id/name_text"/>
+                          android:layout_marginLeft="20dp"
+                          android:text="(1) 신청자 정보"
+                          android:textStyle="bold"
+                          android:layout_marginTop="10dp"/>
                 <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:layout_margin="3dp"
+                          android:layout_marginTop="5dp"
+                          android:layout_marginLeft="20dp"
+                          android:id="@+id/name_text"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#4BB4B4B4"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="10dp"
+                          android:text="(2) 큐브 정보"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="5dp"
                           android:id="@+id/cube_text"/>
                 <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:layout_margin="3dp"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="5dp"
                           android:id="@+id/cube_info_text"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#4BB4B4B4"/>
                 <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:layout_margin="3dp"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="10dp"
+                          android:text="(3) 예약 날짜"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="5dp"
                           android:id="@+id/date_text"/>
 
         </LinearLayout>
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/info2_linear"
                     android:layout_marginTop="10dp"
                     android:background="#FFFFFF"
@@ -104,12 +143,74 @@
                                android:src="@drawable/green_circle_num2"/>
                     <TextView android:layout_width="match_parent"
                               android:layout_height="match_parent"
-                              android:text="시간 선택"
+                              android:text="시간 및 목적 선택"
                               android:gravity="center_vertical"
                               android:textSize="17dp"
                               android:textStyle="bold"
                               android:paddingLeft="5dp"/>
                 </LinearLayout>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:textSize="35dp"
+                          android:layout_marginTop="10dp"
+                          android:id="@+id/from_time_to_time_text"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="30dp"
+                          android:id="@+id/possible_text"
+                          android:text="(1) 대여가능 잔여시간"
+                          android:textStyle="bold"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#4BB4B4B4"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="10dp"
+                          android:text="(2) 시간 선택"
+                          android:textStyle="bold"/>
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/select_time_recycler">
+                </android.support.v7.widget.RecyclerView>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#4BB4B4B4"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginTop="10dp"
+                          android:text="(3) 이용 목적"
+                          android:textStyle="bold"/>
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/select_purpose_recycler">
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="match_parent"
@@ -133,10 +234,29 @@
                               android:gravity="center_vertical"
                               android:textSize="17dp"
                               android:textStyle="bold"
-                              android:paddingLeft="5dp"
-                    />
-
+                              android:paddingLeft="5dp"/>
                 </LinearLayout>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="20dp"
+                          android:text="(1) 신청 가능 최소인원 : 4명 이상(신청자 포함)"
+                          android:id="@+id/user_info_text"
+                          android:textStyle="bold"
+                          android:layout_marginTop="10dp"/>
+                <android.support.v7.widget.SearchView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/notselected_background_border"
+                        app:queryHint="학번을 입력하세요"
+                        android:inputType="phone"
+                        android:id="@+id/search_friend_view"
+                        android:layoutDirection="rtl"
+                >
+
+                </android.support.v7.widget.SearchView>
             </LinearLayout>
             <Button
                     android:layout_width="match_parent"

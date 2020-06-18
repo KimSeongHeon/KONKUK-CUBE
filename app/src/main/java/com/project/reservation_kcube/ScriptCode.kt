@@ -114,22 +114,43 @@ fun click_reserve(time:String,info:Pair<Int,Int>):String{
             "a.click();})()"
 }
 fun parsing_reserve_data():String{
-    /*
-    *   return    "javascript:function date_parsing(){"+
-            "var date = document.getElementById(\"ymdSelect\");"+
-            "var option = date.getElementsByTagName(\"option\");"+
-            "var arr = [];"+
-    "for(var i=0;i<option.length;i++){"+
-            "arr.push(option[i].text);"+
-            "}"+"window.android.get_date(arr);" + "return true;"+
-            "}"+"date_parsing();"
-            */
     return "javascript:function temp(){" +
+            "document.getElementById('srupSeq').value = 1;" +
             "var date = document.getElementById('dateNm').innerText;" +
             "var location = document.getElementById('cubeNm').innerText;" +
             "var location_info = document.getElementById('cubeInfo').innerText;" +
-            "var name = document.getElementsByTagName('tbody')[0].getElementsByClassName('last')[0].innerText;"+
-            "console.log(name);" +
-            "window.android.show_reserve_data(date,location,location_info,name); return true" +
+            "var name = document.getElementsByTagName('tbody')[0].getElementsByClassName('last')[0].innerText;" +
+            "var possible_time = document.getElementById('remainderTm').innerText;" +
+            "var userInfo = document.getElementById('userInfo').innerText;" +
+            "var arr = [];" +
+            "var purpose = document.getElementById('srupSeq').childNodes;" +
+            "for(var i=1;i<purpose.length-1;i++){" +
+            "arr.push(purpose[i].innerText);}"+
+            "console.log(arr[0]);" +
+            "window.android.show_reserve_data(date,location,location_info,name,possible_time,arr,userInfo); return true" +
+            "}temp()"
+}
+fun select_time_script(num:Int):String{
+    return "javascript:function temp(){" +
+            "document.getElementById('resetTm').click();" +
+            "var a = document.getElementsByClassName('day-list tmList')[0].childNodes;" +
+            "for(var i=0;i<${num+1};i++){ a[i].click(); } } temp();"
+}
+fun select_purpose_script(num:Int):String{
+    return "javascript:function temp(){" +
+            "var purpose = document.getElementById('srupSeq');" +
+            "purpose.value = ${num+1};" +
+            "} temp();"
+}
+fun open_friend_script():String{
+    return "javascript:function temp(){" +
+            "document.getElementById('userAddBtn').click();} temp()"
+}
+fun Search_friend_script(str:String):String{
+    Log.v("Str",str)
+    return "javascript:function temp(){" +
+            "document.getElementsByName('userId')[1].value = \"${str}\";" +
+            "document.getElementById('addBtn').click();" +
+            "document.getElementsByClassName('di_btn_conf ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only')[0].click();" +
             "}temp()"
 }

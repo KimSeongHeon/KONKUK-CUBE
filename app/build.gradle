@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 }
