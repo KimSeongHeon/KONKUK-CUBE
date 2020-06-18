@@ -30,11 +30,13 @@ class FragmentTab1: Fragment() {
     lateinit var arcodian_recycler:RecyclerView
     lateinit var select_time_recycler:RecyclerView
     lateinit var select_purpose_recycler:RecyclerView
+    lateinit var add_friend_recycler:RecyclerView
     lateinit var  date_adapter:Adapter_DateRecycler
     lateinit var building_adapter:Adapter_BuildingRecycler
     lateinit var arcodian_adapter:Adapter_ArcodianRecycler
     lateinit var select_time_adapter:Adapter_SelectTime
     lateinit var select_purpose_adapter:Adapter_SelectPurpose
+    lateinit var add_friend_adapter:Adapter_AddFriendRecycler
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
     var date_recyclerview_scroll = 0;
@@ -43,6 +45,7 @@ class FragmentTab1: Fragment() {
     var arcodian_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
     var select_time_layoutManager = GridLayoutManager(this.context, 2)
     var select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
+    var add_friend_layoutManager = GridLayoutManager(this.context, 2)
     var successive_time:Double = 0.0
     var select_clock = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,6 +59,7 @@ class FragmentTab1: Fragment() {
         date_recycler = view!!.findViewById(R.id.when_recyclerview)
         select_time_recycler = view!!.findViewById(R.id.select_time_recycler)
         select_purpose_recycler = view!!.findViewById(R.id.select_purpose_recycler)
+        add_friend_recycler = view!!.findViewById(R.id.add_friend_recycler)
         var parent = view!!.findViewById<View>(R.id.include_view)
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
         Log.v("building data",Building_data.size.toString())
@@ -158,6 +162,11 @@ class FragmentTab1: Fragment() {
     fun display_friend(id:Array<String>,name:Array<String>){
         Log.v("id",id.size.toString())
         Log.v("name",name.get(0))
+        add_friend_layoutManager = GridLayoutManager(this.context, 2)
+        add_friend_recycler.layoutManager = add_friend_layoutManager
+        add_friend_adapter = Adapter_AddFriendRecycler(id,name)
+        add_friend_recycler.adapter = add_friend_adapter
+        add_friend_adapter.notifyDataSetChanged()
     }
     fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
@@ -179,6 +188,7 @@ class FragmentTab1: Fragment() {
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
         var hide_button = parent.findViewById<Button>(R.id.btn_hide)
         var search_view = parent.findViewById<android.support.v7.widget.SearchView>(R.id.search_friend_view)
+        var submit_btn = parent.findViewById<Button>(R.id.submit_btn)
         sliding_layout.setOnDragListener(null)
         sliding_layout.isTouchEnabled = false
         parent.setOnClickListener(null)
@@ -186,6 +196,9 @@ class FragmentTab1: Fragment() {
         lower_linear.setOnClickListener(null)
         lower_linear.setOnDragListener(null)
         title.setOnDragListener(null)
+        submit_btn.setOnClickListener {
+            (context as MainActivity).mWebView.loadUrl(final_submit_script())
+        }
         hide_button.setOnClickListener {
             sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
             parent.visibility = View.GONE

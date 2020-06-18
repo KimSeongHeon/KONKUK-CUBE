@@ -76,12 +76,12 @@ class MyJavaScriptInterface(context:Context){
         }).start()
     }
     @JavascriptInterface
-    fun show_friend(s_id:Array<String>,s_name:Array<String>){
+    fun select_friends_script(id:Array<String>,name:Array<String>){
         Thread(object:Runnable{
             override fun run(){
                 (mcontext as MainActivity).runOnUiThread(object : Runnable{
                     override fun run(){
-                        fragmentTab1!!.display_friend(s_id,s_name);
+                        fragmentTab1!!.display_friend(id,name);
                     }
                 })
             }

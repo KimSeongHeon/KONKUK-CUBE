@@ -147,10 +147,33 @@ fun open_friend_script():String{
             "document.getElementById('userAddBtn').click();} temp()"
 }
 fun Search_friend_script(str:String):String{
-    Log.v("Str",str)
     return "javascript:function temp(){" +
             "document.getElementsByName('userId')[1].value = \"${str}\";" +
             "document.getElementById('addBtn').click();" +
-            "document.getElementsByClassName('di_btn_conf ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only')[0].click();" +
+            "var target = document.getElementsByClassName('last')[19];" +
+            "var config = { attributes: true, childList: true, characterData: true };" +
+            "var observer = new MutationObserver(function(mutations){\n" +
+            "    mutations.forEach(function(mutation){\n" +
+            "document.getElementsByClassName('di_btn_conf ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only')[0].click();})\n" +
+            "});" +
+            "var target2 = document.getElementsByClassName('del-box-item')[0].getElementsByClassName('last')[0];" +
+            "var observer2 = new MutationObserver(function(mutations){\n" +
+            "mutations.forEach(function(mutation){\n" +
+            "var a = document.getElementsByClassName('del-box-item')[0].getElementsByTagName('i');" +
+            "var id = [];" +
+            "var name = [];" +
+            "for(var i=0;i<a.length;i++){" +
+            "if(i%2 == 0) id.push(a[i].innerText);" +
+            "else name.push(a[i].innerText);}" +
+            "window.android.select_friends_script(id,name);return true;});" +
+            "});" +
+            "observer.observe(target, config);" +
+            "observer2.observe(target2,config);" +
+            "}temp()"
+}
+fun final_submit_script():String{
+    return "javascript:function temp(){" +
+            "window.confirm = function(){return true;};" +
+            "document.getElementById('saveBtn').click();" +
             "}temp()"
 }
