@@ -15,7 +15,7 @@ import java.util.*
 
 class Adapter_SelectTime(var data:Array<String>,var success:Int,var fragment: FragmentTab1,var starttime:String)
     :RecyclerView.Adapter<Adapter_SelectTime.ViewHolder>() {
-    var selectedPosition = -1;
+    var selectedPosition = 0;
     lateinit var context:Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Adapter_SelectTime.ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.card_successive_time,p0,false)
@@ -36,7 +36,7 @@ class Adapter_SelectTime(var data:Array<String>,var success:Int,var fragment: Fr
         return ret
     }
     override fun onBindViewHolder(p0: Adapter_SelectTime.ViewHolder, p1: Int) {
-        if(data[p1].length == 5)p0.time.text = data[p1]
+        if(data[p1].length == 5) p0.time.text = data[p1]
         else p0.time.text = " " + data[p1] + "  "
         if(selectedPosition == -1) fragment.view!!.findViewById<TextView>(R.id.from_time_to_time_text).text = starttime + " ~ "
         else fragment.view!!.findViewById<TextView>(R.id.from_time_to_time_text).text = starttime + " ~ " + next_time()
@@ -57,9 +57,13 @@ class Adapter_SelectTime(var data:Array<String>,var success:Int,var fragment: Fr
         }
         p0.linear.setOnClickListener {
             if(p1 < success){
+                Log.v("fasf",(fragment.view!!.findViewById<TextView>(R.id.possible_text).text.toString().split(":")[1].split("시간")[0].toDouble()).toString())
                 var script = select_time_script(p1)
                 (context as MainActivity).mWebView.loadUrl(script)
                 selectedPosition = p1
+                fragment.view!!.findViewById<TextView>(R.id.possible_text).text =
+                    "(1) " + "대여가능 잔여시간 : " +
+                            (fragment.possible_my_time - (0.5 * selectedPosition)).toString() +"시간"
                 notifyDataSetChanged()
             }
         }

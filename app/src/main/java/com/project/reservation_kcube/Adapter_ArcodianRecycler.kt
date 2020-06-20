@@ -9,10 +9,12 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<Int,HashSet<Int>>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var fragment1:FragmentTab1): RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
+class Adapter_ArcodianRecycler(var data:Array<Int>, var room_num_info:MutableMap<Int,HashSet<Int>>, var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>, var room_info: MutableMap<Int, Data_roomInfo>, var fragment1:FragmentTab1)
+    : RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
     var selectedPosition = -1;
     var selectedItems = SparseBooleanArray()
     lateinit var context: Context
@@ -39,10 +41,12 @@ class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<
         var title: TextView
         var list: LinearLayout
         var rcyview:RecyclerView
+        var up_down:ImageView
         init{
             title = itemView.findViewById(R.id.building_title_text)
             list = itemView.findViewById(R.id.roomlist_linearlayout)
             rcyview = itemView.findViewById(R.id.room_recyclerview)
+            up_down = itemView.findViewById(R.id.up_down_imageview)
             title.setOnClickListener{
                 val position = adapterPosition;
                 ItemClickListener?.OnItemClick(this,it,data[position],position)
@@ -68,7 +72,7 @@ class Adapter_ArcodianRecycler(var data:Array<Int>,var room_num_info:MutableMap<
         }
         fun onBind(position:Int){
             title.setOnClickListener(this)
-            room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position],fragment1)
+            room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position],room_info,fragment1)
             rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
             rcyview.adapter = room_adapter
             list.visibility = View.VISIBLE

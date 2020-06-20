@@ -169,11 +169,28 @@ fun Search_friend_script(str:String):String{
             "});" +
             "observer.observe(target, config);" +
             "observer2.observe(target2,config);" +
+            "window.alert = function(msg){" +
+            "console.log(\"HI\");" +
+            "window.android.print_error(msg); return true;" +
+            "};" +
             "}temp()"
 }
 fun final_submit_script():String{
     return "javascript:function temp(){" +
-            "window.confirm = function(){return true;};" +
+            "window.confirm = function(){" +
+            "window.android.print_success(\"신청되었습니다.\");" +
+            "return true; return true;};" +
+            "window.alert = function(msg){" +
+            "window.android.print_error(msg); return true;" +
+            "};" +
             "document.getElementById('saveBtn').click();" +
+            "}temp()"
+}
+fun delete_friend_script(num:Int):String{
+    return "javascript:function temp(){" +
+            "var a = document.getElementsByClassName('del-box')[${num}].getElementsByClassName('userDel')[0].click();" +
+            "window.alert = function(msg){" +
+            "window.android.print_error(msg); return true;" +
+            "};" +
             "}temp()"
 }

@@ -3,12 +3,13 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var building:Int,var fragement1:FragmentTab1)
+class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var building:Int,var room_info:MutableMap<Int,Data_roomInfo>,var fragement1:FragmentTab1)
     : RecyclerView.Adapter<Adapter_RoomRecycler.ViewHolder>() {
     lateinit var time_adapter:Adapter_TimeRecycler
     lateinit var context: Context
@@ -22,7 +23,8 @@ class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int
     }
     override fun onBindViewHolder(p0: Adapter_RoomRecycler.ViewHolder, p1: Int) {
         p0.onBind(p1)
-        p0.room_num.text = data.get(p1).toString() + " 호실"
+        Log.v("check",room_info.get(data.get(p1)).toString())
+        p0.room_num.text = convertRoomNumToName(data.get(p1)) + "("+ room_info.get(data.get(p1))!!.acceptanceNum + ")"
     }
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         var room_num:TextView

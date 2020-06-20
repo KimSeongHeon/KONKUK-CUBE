@@ -23,6 +23,10 @@ class Adapter_AddFriendRecycler(var id:Array<String>,var name:Array<String>): Re
     override fun onBindViewHolder(p0: Adapter_AddFriendRecycler.ViewHolder, p1: Int) {
         p0.id.text = id[p1]
         p0.name.text = name[p1]
+        p0.cancel.setOnClickListener {
+            val script = delete_friend_script(p1)
+            (context as MainActivity).mWebView.loadUrl(script)
+        }
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var id: TextView

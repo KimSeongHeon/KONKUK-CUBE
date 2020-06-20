@@ -1,5 +1,6 @@
 package com.project.reservation_kcube
 
+import android.app.ProgressDialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     val NOTICE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findUseInfo.do"
     val FIRST_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do"
     val SECOND_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep2.do"
+    val FINISH_RESERVE_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveFinish.do?"
     lateinit var user_id:String
     lateinit var user_pw:String
     lateinit var mWebView:WebView
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         var fragmentTab2:FragmentTab2? = null
         var fragmentTab3:FragmentTab3? = null
         var fragmentTab4:FragmentTab4? = null
+        lateinit var progressDialog:ProgressDialog
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +87,9 @@ class MainActivity : AppCompatActivity() {
                 if(url.equals(SECOND_RESERVE_URL)){
                     view!!.loadUrl(parsing_reserve_data())
                 }
+                if(url.equals(FINISH_RESERVE_URL)){
+                    view!!.loadUrl(FIRST_RESERVE_URL)
+                }
             }
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 Log.v("url",url);
@@ -97,6 +104,11 @@ class MainActivity : AppCompatActivity() {
     }
     fun login(){
         Log.v("fun login","called")
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("로딩 중입니다.")
+        progressDialog.setCancelable(false)
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+        progressDialog.show()
         mWebView.loadUrl(ENTRY_URL)
         Toast.makeText(applicationContext,"로그인에 성공하였습니다",Toast.LENGTH_SHORT).show()
     }

@@ -37,17 +37,26 @@
                     android:id="@+id/select_linearlayout"
                     android:layout_marginTop="35dp"
                     android:orientation="vertical">
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="#5C3D3B3B"/>
                 <android.support.v7.widget.RecyclerView
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         app:layout_collapseMode="parallax"
+                        android:background="#FFFFFF"
                         android:id="@+id/when_recyclerview">
                 </android.support.v7.widget.RecyclerView>
                 <android.support.v7.widget.RecyclerView
                         android:layout_marginTop="7dp"
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
+                        android:background="#FFFFFF"
                         app:layout_collapseMode="parallax"
                         android:id="@+id/where_recyclerview">
                 </android.support.v7.widget.RecyclerView>

@@ -1,4 +1,5 @@
 package com.project.reservation_kcube
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var loginButton: Button
     lateinit var mWebView: WebView
     lateinit var WebSetting:WebSettings
+    lateinit var progressDialog:ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,12 +45,14 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("user_id",editID.text.toString());
                     intent.putExtra("user_pw",editPW.text.toString());
                     startActivity(intent);
+                    progressDialog.dismiss()
                 }
                 else if(url.toString() == "https://mwein.konkuk.ac.kr/common/user/login.do"){
                     Toast.makeText(applicationContext,"로그인 정보가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
                     editID.text.clear()
                     editPW.text.clear()
                     editID.requestFocus()
+                    progressDialog.dismiss()
                 }
             }
 
@@ -60,6 +64,11 @@ class LoginActivity : AppCompatActivity() {
     }
     fun init_listener(){
         loginButton.setOnClickListener {
+            progressDialog = ProgressDialog(this)
+            progressDialog.setMessage("로그인 중입니다.")
+            progressDialog.setCancelable(false)
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+            progressDialog.show()
             mWebView.loadUrl(ENTRY_URL)
             var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(editID.windowToken,0)

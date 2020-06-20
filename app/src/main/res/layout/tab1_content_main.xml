@@ -11,12 +11,22 @@
         android:fillViewport="true">
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="bottom"
+            android:gravity="center"
             android:id="@+id/content_linearlayout"
             android:fillViewport="true"
             android:background="#FFFFFF">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="예약 가능한 K-Cube가 없습니다."
+                android:visibility="gone"
+                android:id="@+id/accordian_text"/>
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

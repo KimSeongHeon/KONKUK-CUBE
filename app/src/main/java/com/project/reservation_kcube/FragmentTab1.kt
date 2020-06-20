@@ -1,5 +1,7 @@
 package com.project.reservation_kcube
 
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
@@ -12,12 +14,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.LinearLayout
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
+import com.project.reservation_kcube.MainActivity.Companion.progressDialog
 import com.project.reservation_kcube.MainActivity.Companion.update_time
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_tab1.*
+import kotlinx.android.synthetic.main.tab1_content_main.*
 import kotlinx.android.synthetic.main.up_reserve.view.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -45,9 +48,14 @@ class FragmentTab1: Fragment() {
     var arcodian_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
     var select_time_layoutManager = GridLayoutManager(this.context, 2)
     var select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
-    var add_friend_layoutManager = GridLayoutManager(this.context, 2)
+    var add_friend_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
     var successive_time:Double = 0.0
+    var possible_my_time = 0.0
     var select_clock = ""
+    var building_info = HashSet<Int>()
+    var room_num_info = mutableMapOf<Int,HashSet<Int>>()
+    var time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
+    var room_info = mutableMapOf<Int,Data_roomInfo>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v("onView","crated")
         return inflater.inflate(R.layout.fragment_tab1,container,false);
@@ -72,7 +80,7 @@ class FragmentTab1: Fragment() {
     fun dispay_building(value:Array<String>){
         where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
         building_recycler.layoutManager = where_layoutManager
-        building_adapter = Adapter_BuildingRecycler(value)
+        building_adapter = Adapter_BuildingRecycler(value,this)
         building_recycler.adapter = building_adapter
         building_adapter.notifyDataSetChanged()
     }
@@ -97,10 +105,10 @@ class FragmentTab1: Fragment() {
                 Log.e("JSONARRAY",ex.toString());
             }
         }
-        var building_info = HashSet<Int>()
-        var room_num_info = mutableMapOf<Int,HashSet<Int>>()
-        var time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
-        var room_info = mutableMapOf<Pair<Int,Int>,Data_roomInfo>()
+        building_info = HashSet<Int>()
+        room_num_info = mutableMapOf<Int,HashSet<Int>>()
+        time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
+        room_info = mutableMapOf<Int,Data_roomInfo>()
         for(i in 0 until json_arr.length()){
             var jsonObject = json_arr.getJSONObject(i);
             var building = jsonObject.getString("buildSeq").toInt();
@@ -112,29 +120,25 @@ class FragmentTab1: Fragment() {
             var value = jsonObject.getString("rsvStartHm")
             if(time_info[key] == null) time_info.put(key, arrayListOf(value))
             else time_info[key]!!.add(value)
+            if(room_info[room_num] == null) room_info.put(room_num, Data_roomInfo(jsonObject.getString("userMin").toInt(),jsonObject.getString("acceptanceNmpr").toString()))
+            else room_info[room_num] = Data_roomInfo(jsonObject.getString("userMin").toInt(),jsonObject.getString("acceptanceNmpr"))
         }
         Log.v("building",building_info.size.toString())
-        arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
-        arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info,this)
-        arcodian_recycler.layoutManager = arcodian_layoutManager
-        arcodian_recycler.adapter = arcodian_adapter
-        arcodian_adapter.notifyDataSetChanged()
-        /*for(i in 0 until building_info.size){
-            var layout = building_layout((context as MainActivity).applicationContext)
-            var contents_area = layout.findViewById<LinearLayout>(R.id.room_linearlayout);
-            layout.findViewById<TextView>(R.id.building_title_text).setOnClickListener {
-                if(contents_area.visibility == View.GONE) {
-                    contents_area.animate().alpha(1.0f).setDuration(1000)
-                    contents_area.visibility = View.VISIBLE
-                }
-                else {
-                    contents_area.animate().alpha(0.0f).setDuration(2000)
-                    contents_area.visibility = View.GONE
-                }
-            }
-            contents.addView(layout)
-        }*/
-
+        if(building_info.size == 0){
+            arcodian_recycler.visibility = View.GONE
+            accordian_text.visibility = View.VISIBLE
+        }
+        else{
+            accordian_text.visibility = View.GONE
+            arcodian_recycler.visibility = View.VISIBLE
+            arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+            arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info,room_info,this)
+            arcodian_recycler.layoutManager = arcodian_layoutManager
+            arcodian_recycler.adapter = arcodian_adapter
+            arcodian_adapter.notifyDataSetChanged()
+        }
+        progressDialog.dismiss()
+        setUpdateTime()
     }
     fun display_reserve_data(date:String,location:String,location_info:String,name:String,possible_time:String,purpose:Array<String>,userInfo:String){
         Log.v("display","reserve_data")
@@ -144,8 +148,18 @@ class FragmentTab1: Fragment() {
         parent.cube_info_text.text = location_info.split(',')[0]
         parent.date_text.text = date
         parent.user_info_text.text = "(1) " + userInfo.split(')')[0] + ')'
-        Log.v("possible_time",possible_time)
-        parent.possible_text.text = "(1) 대여가능 잔여시간 : " + (possible_time.split(":")[1].split("시간")[0].toDouble() + 0.5).toString() + "시간"
+        possible_my_time = (possible_time.split(":")[1].split("시간")[0].toDouble())
+        parent.possible_text.text = "(1) 대여가능 잔여시간 : " + (possible_my_time).toString() + "시간"
+        if(possible_my_time == 0.0){
+            parent.findViewById<TextView>(R.id.from_time_to_time_text).visibility = View.INVISIBLE
+            parent.findViewById<TextView>(R.id.impossible_text).visibility = View.VISIBLE
+            parent.findViewById<RecyclerView>(R.id.select_time_recycler).visibility = View.GONE
+        }
+        else{
+            parent.findViewById<TextView>(R.id.from_time_to_time_text).visibility = View.VISIBLE
+            parent.findViewById<TextView>(R.id.impossible_text).visibility = View.GONE
+            parent.findViewById<RecyclerView>(R.id.select_time_recycler).visibility = View.VISIBLE
+        }
         var remain_time =  (possible_time.split(":")[1].split("시간")[0].toDouble() + 0.5)
         var time = arrayOf("0.5시간","1시간","1.5시간","2시간","2.5시간","3시간")
         select_time_layoutManager = GridLayoutManager(this.context,3)
@@ -160,9 +174,7 @@ class FragmentTab1: Fragment() {
         select_purpose_adapter.notifyDataSetChanged()
     }
     fun display_friend(id:Array<String>,name:Array<String>){
-        Log.v("id",id.size.toString())
-        Log.v("name",name.get(0))
-        add_friend_layoutManager = GridLayoutManager(this.context, 2)
+        add_friend_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.VERTICAL,false)
         add_friend_recycler.layoutManager = add_friend_layoutManager
         add_friend_adapter = Adapter_AddFriendRecycler(id,name)
         add_friend_recycler.adapter = add_friend_adapter
@@ -186,7 +198,7 @@ class FragmentTab1: Fragment() {
         var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
         var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
-        var hide_button = parent.findViewById<Button>(R.id.btn_hide)
+        var hide_button = parent.findViewById<ImageButton>(R.id.btn_hide)
         var search_view = parent.findViewById<android.support.v7.widget.SearchView>(R.id.search_friend_view)
         var submit_btn = parent.findViewById<Button>(R.id.submit_btn)
         sliding_layout.setOnDragListener(null)
@@ -200,8 +212,17 @@ class FragmentTab1: Fragment() {
             (context as MainActivity).mWebView.loadUrl(final_submit_script())
         }
         hide_button.setOnClickListener {
+            MainActivity.progressDialog.show()
+            var imm = this.context!!.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(search_view.windowToken,0)
+            search_view.setQuery("",false)
+            parent.findViewById<ScrollView>(R.id.scrollView).smoothScrollTo(0,0)
+            add_friend_adapter = Adapter_AddFriendRecycler(arrayOf(),arrayOf())
+            add_friend_recycler.adapter = add_friend_adapter //초기화
+            add_friend_adapter.notifyDataSetChanged()
             sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
             parent.visibility = View.GONE
+            when_recyclerview.setBackgroundColor(Color.WHITE)
             (context as MainActivity).mWebView.loadUrl((context as MainActivity).FIRST_RESERVE_URL)
         }
         search_view.setOnClickListener {
@@ -212,7 +233,6 @@ class FragmentTab1: Fragment() {
         }
         search_view.setOnQueryTextListener(object:android.support.v7.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                Log.v("asf",p0)
                 var query = ""
                 if(p0 == null) query = ""
                 else query = p0

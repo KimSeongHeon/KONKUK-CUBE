@@ -9,14 +9,17 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:id="@+id/reserve_title_linear"
             android:orientation="horizontal">
-        <Button
+        <ImageButton
                 android:id="@+id/btn_hide"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:text="hide"
+                android:background="#FFFFFF"
+                android:src="@drawable/baseline_clear_black_24"
                 android:textSize="12dp"/>
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -37,6 +40,7 @@
             android:background="#5C3D3B3B"/>
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/scrollView"
                 android:background="#E0E0E0">
         <LinearLayout
                 android:layout_width="match_parent"
@@ -178,6 +182,15 @@
                           android:layout_marginTop="10dp"
                           android:text="(2) 시간 선택"
                           android:textStyle="bold"/>
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:padding="10dp"
+                          android:text="대여가능 잔여시간이 없습니다."
+                          android:visibility="gone"
+                          android:id="@+id/impossible_text"
+                          android:textSize="13dp"/>
                 <android.support.v7.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="140dp"
@@ -214,7 +227,7 @@
             </LinearLayout>
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/info3_linear"
                     android:layout_marginTop="10dp"
                     android:background="#FFFFFF"
@@ -239,7 +252,6 @@
                 <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:layout_marginLeft="20dp"
-                          android:text="(1) 신청 가능 최소인원 : 4명 이상(신청자 포함)"
                           android:id="@+id/user_info_text"
                           android:textStyle="bold"
                           android:layout_marginTop="10dp"/>
@@ -269,7 +281,10 @@
                             android:orientation="vertical">
                         <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="300dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_gravity="center"
                                 android:id="@+id/add_friend_recycler"
                                 android:padding="5dp">
                         </android.support.v7.widget.RecyclerView>
