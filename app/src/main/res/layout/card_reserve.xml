@@ -29,6 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:padding="5dp"
+                android:gravity="center_vertical"
                 android:layout_gravity="left|center"
                 android:id="@+id/click_day_text"
                 android:text="큐브 신청일 : 2020.06.20"
