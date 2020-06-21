@@ -38,4 +38,10 @@
             android:id="@+id/background_webview"
             android:visibility="gone">
     </WebView>
+    <WebView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/background_webview2"
+            android:visibility="gone">
+    </WebView>
 </LinearLayout>

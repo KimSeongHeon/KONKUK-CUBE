@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                 Toast.makeText(applicationContext,"인터넷 연결 상태를 확인해주세요",Toast.LENGTH_SHORT).show()
+                progressDialog.dismiss()
             }
         }
         WebSetting.javaScriptEnabled = true;

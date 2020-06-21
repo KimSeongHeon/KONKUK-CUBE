@@ -194,3 +194,29 @@ fun delete_friend_script(num:Int):String{
             "};" +
             "}temp()"
 }
+fun show_reserve_data():String{
+    return "javascript:function temp(){" +
+            "var a = document.getElementsByTagName('tbody')[0].getElementsByTagName('tr');" +
+            "var c = [];" +
+            "for(var i=0;i<a.length;i++){" +
+            "var b = a[i].getElementsByTagName('td');" +
+            "var info = new Object;" +
+            "for(var j=0;j<b.length;j++){" +
+            "if(j==0) info.click_day = b[j].innerText;" +
+            "if(j==1) info.day = b[j].innerText;" +
+            "if(j==2) info.time = b[j].innerText;" +
+            "if(j==3) info.location = b[j].innerText;" +
+            "if(j==4 || j==5){" +
+            "if(b[j].innerText != \"-\") info.accept = b[j].innerText;" +
+            "}" +
+            "}" +
+            "c.push(JSON.stringify(info));" +
+            "}" +
+            "window.android.print_reserve(c); return true;" +
+            "} temp();"
+}
+fun move_reserve_tab():String{
+    return "javascript:function temp(){" +
+            "document.getElementsByClassName('tab_style li4')[0].getElementsByTagName('a')[2].click();" +
+            "}; temp()"
+}

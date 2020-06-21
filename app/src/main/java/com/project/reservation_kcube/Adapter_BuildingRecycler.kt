@@ -3,6 +3,7 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,17 +55,32 @@ class Adapter_BuildingRecycler(var data:Array<String>,fragmentTab1: FragmentTab1
         }
         p0.linear.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
-                if(!fragmentTab1!!.room_num_info.containsKey(converNametoNum(data[p1]))){
-                    fragmentTab1!!.arcodian_recycler.visibility = View.GONE
-                    fragmentTab1!!.accordian_text.visibility = View.VISIBLE
-                }
-                else{
+                if(p1 == 0){
                     fragmentTab1!!.arcodian_recycler.visibility = View.VISIBLE
                     fragmentTab1!!.accordian_text.visibility = View.GONE
-                    fragmentTab1!!.arcodian_adapter = Adapter_ArcodianRecycler(arrayOf(converNametoNum(data[p1])),
+                    var array:ArrayList<Int> = arrayListOf<Int>()
+                    for(i in 0 until data.size){
+                        if(fragmentTab1!!.room_num_info.containsKey(converNametoNum(data[i]))) array.add(converNametoNum(data[i]));
+                    }
+                    Log.v("size",array.size.toString())
+                    fragmentTab1!!.arcodian_adapter = Adapter_ArcodianRecycler(array.toTypedArray(),
                         fragmentTab1!!.room_num_info, fragmentTab1!!.time_info, fragmentTab1!!.room_info, fragmentTab1!!)
                     fragmentTab1!!.arcodian_recycler.adapter = fragmentTab1!!.arcodian_adapter //초기화
                     fragmentTab1!!.arcodian_adapter.notifyDataSetChanged()
+                }
+                else{
+                    if(!fragmentTab1!!.room_num_info.containsKey(converNametoNum(data[p1]))){
+                        fragmentTab1!!.arcodian_recycler.visibility = View.GONE
+                        fragmentTab1!!.accordian_text.visibility = View.VISIBLE
+                    }
+                    else{
+                        fragmentTab1!!.arcodian_recycler.visibility = View.VISIBLE
+                        fragmentTab1!!.accordian_text.visibility = View.GONE
+                        fragmentTab1!!.arcodian_adapter = Adapter_ArcodianRecycler(arrayOf(converNametoNum(data[p1])),
+                            fragmentTab1!!.room_num_info, fragmentTab1!!.time_info, fragmentTab1!!.room_info, fragmentTab1!!)
+                        fragmentTab1!!.arcodian_recycler.adapter = fragmentTab1!!.arcodian_adapter //초기화
+                        fragmentTab1!!.arcodian_adapter.notifyDataSetChanged()
+                    }
                 }
                 selectedPosition = p1
                 notifyDataSetChanged()

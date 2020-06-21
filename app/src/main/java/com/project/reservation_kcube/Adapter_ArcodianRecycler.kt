@@ -72,6 +72,8 @@ class Adapter_ArcodianRecycler(var data:Array<Int>, var room_num_info:MutableMap
         }
         fun onBind(position:Int){
             title.setOnClickListener(this)
+            Log.v("room_num_info",room_num_info.size.toString())
+            Log.v("position",data.get(position).toString())
             room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position],room_info,fragment1)
             rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
             rcyview.adapter = room_adapter

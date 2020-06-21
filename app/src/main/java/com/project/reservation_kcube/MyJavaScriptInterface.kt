@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
+import com.project.reservation_kcube.MainActivity.Companion.fragmentTab2
 
 class MyJavaScriptInterface(context:Context){
     var mcontext:Context = context;
@@ -111,6 +112,19 @@ class MyJavaScriptInterface(context:Context){
                     override fun run(){
                         Toast.makeText(mcontext,str,Toast.LENGTH_SHORT).show()
                         fragmentTab1!!.view!!.findViewById<LinearLayout>(R.id.up_reserve).findViewById<ImageButton>(R.id.btn_hide).performClick()
+                    }
+                })
+            }
+        }).start()
+    }
+    @JavascriptInterface
+    fun print_reserve(str:Array<String>){
+        Log.v("str",str[0])
+        Thread(object:Runnable{
+            override fun run(){
+                (mcontext as MainActivity).runOnUiThread(object : Runnable{
+                    override fun run(){
+                        fragmentTab2!!.display_reserveList(str)
                     }
                 })
             }

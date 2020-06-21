@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:src="@drawable/complete_reserve"
+                android:background="@drawable/selected_background_border"
+                android:id="@+id/is_reserve_imageview"
+                android:layout_height="35dp"/>
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:layout_gravity="left|center"
+                android:id="@+id/click_day_text"
+                android:text="큐브 신청일 : 2020.06.20"
+                android:textColor="#868686"/>
+            <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleType="fitXY"
+                    android:id="@+id/send_kakao_btn"
+                    android:layout_gravity="right|center_horizontal"
+                    android:src="@drawable/kakaotalk"/>
+        </FrameLayout>
+    </LinearLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#5C3D3B3B"/>
+    <LinearLayout
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/animallife_building"
+                android:background="@drawable/notselected_background_border"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/building_img"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="0dp"
+                      android:paddingLeft="5dp"
+                      android:paddingRight="5dp"
+                      android:text="생명과학관 K-Cube 3호실 (2명)"
+                      android:gravity="center"
+                      android:textStyle="bold"
+                      android:id="@+id/reserve_building_text"
+                      android:layout_weight="1"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#5C3D3B3B"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="0dp"
+                      android:text="예약일 : 2020.07.01"
+                      android:paddingLeft="5dp"
+                      android:paddingRight="5dp"
+                      android:gravity="center"
+                      android:textStyle="bold"
+                      android:id="@+id/reserve_date_text"
+                      android:layout_weight="1"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#5C3D3B3B"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="0dp"
+                      android:gravity="center"
+                      android:text="대여 시간 : 16:00 - 17:00"
+                      android:paddingLeft="5dp"
+                      android:paddingRight="5dp"
+                      android:id="@+id/reserve_time_text"
+                      android:textStyle="bold"
+                      android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
