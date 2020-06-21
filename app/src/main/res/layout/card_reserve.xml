@@ -37,7 +37,7 @@
             <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:id="@+id/send_kakao_btn"
                     android:layout_gravity="right|center_horizontal"
                     android:src="@drawable/kakaotalk"/>
