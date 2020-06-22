@@ -1,20 +1,20 @@
 package com.project.reservation_kcube
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONArray
 import org.json.JSONObject
 
 class FragmentTab2: Fragment() {
-    lateinit var reserve_list_rcyview:RecyclerView
+    lateinit var reserve_list_rcyview: RecyclerView
     lateinit var reserve_list_adapter:Adapter_ReserveListRecycler
-    var reserve_list_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+    var reserve_list_layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL,false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v("onAcitivity2","created")
         return inflater.inflate(R.layout.fragment_tab2,container,false);
@@ -46,7 +46,7 @@ class FragmentTab2: Fragment() {
             var accept = jsonObject.getString("accept").toString()
             data.add(Data_ReserveInfo(click_day,day,time,location,accept))
         }
-        reserve_list_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+        reserve_list_layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL,false)
         reserve_list_rcyview.layoutManager = reserve_list_layoutManager
         reserve_list_adapter = Adapter_ReserveListRecycler(data.toTypedArray())
         reserve_list_rcyview.adapter = reserve_list_adapter

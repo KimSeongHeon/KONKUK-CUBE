@@ -2,7 +2,6 @@ package com.project.reservation_kcube
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
 import kotlinx.android.synthetic.main.tab1_content_main.*
 
 class Adapter_BuildingRecycler(var data:Array<String>,fragmentTab1: FragmentTab1)
-    :RecyclerView.Adapter<Adapter_BuildingRecycler.ViewHolder>() {
+    : RecyclerView.Adapter<Adapter_BuildingRecycler.ViewHolder>() {
     lateinit var context: Context
     lateinit var accordian_adapter:Adapter_ArcodianRecycler
     var selectedPosition = 0;

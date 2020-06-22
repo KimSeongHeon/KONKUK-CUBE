@@ -3,18 +3,18 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
 
 class Adapter_SelectTime(var data:Array<String>,var success:Int,var fragment: FragmentTab1,var starttime:String)
-    :RecyclerView.Adapter<Adapter_SelectTime.ViewHolder>() {
+    : RecyclerView.Adapter<Adapter_SelectTime.ViewHolder>() {
     var selectedPosition = 0;
     lateinit var context:Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Adapter_SelectTime.ViewHolder {

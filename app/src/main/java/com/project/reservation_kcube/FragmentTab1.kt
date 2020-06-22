@@ -3,19 +3,17 @@ package com.project.reservation_kcube
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.project.reservation_kcube.MainActivity.Companion.progressDialog
 import com.project.reservation_kcube.MainActivity.Companion.update_time
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -28,7 +26,7 @@ import kotlin.math.min
 
 
 class FragmentTab1: Fragment() {
-    lateinit var building_recycler:RecyclerView
+    lateinit var building_recycler: RecyclerView
     lateinit var date_recycler:RecyclerView
     lateinit var arcodian_recycler:RecyclerView
     lateinit var select_time_recycler:RecyclerView
@@ -45,10 +43,10 @@ class FragmentTab1: Fragment() {
     var date_recyclerview_scroll = 0;
     var when_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
     var where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
-    var arcodian_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
+    var arcodian_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
     var select_time_layoutManager = GridLayoutManager(this.context, 2)
     var select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
-    var add_friend_layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
+    var add_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
     var successive_time:Double = 0.0
     var possible_my_time = 0.0
     var select_clock = ""
@@ -75,7 +73,7 @@ class FragmentTab1: Fragment() {
         if(Building_data.size != 0) dispay_building(Building_data)
         if(Date_data.size != 0) display_date(Date_data)
         init_variable()
-        setToolbar()
+        //setToolbar()
     }
     fun dispay_building(value:Array<String>){
         where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
@@ -131,7 +129,7 @@ class FragmentTab1: Fragment() {
         else{
             accordian_text.visibility = View.GONE
             arcodian_recycler.visibility = View.VISIBLE
-            arcodian_layoutManager =  LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+            arcodian_layoutManager =  LinearLayoutManager(this.context, RecyclerView.VERTICAL,false)
             arcodian_adapter = Adapter_ArcodianRecycler(building_info.toTypedArray(),room_num_info,time_info,room_info,this)
             arcodian_recycler.layoutManager = arcodian_layoutManager
             arcodian_recycler.adapter = arcodian_adapter
@@ -174,13 +172,13 @@ class FragmentTab1: Fragment() {
         select_purpose_adapter.notifyDataSetChanged()
     }
     fun display_friend(id:Array<String>,name:Array<String>){
-        add_friend_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.VERTICAL,false)
+        add_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
         add_friend_recycler.layoutManager = add_friend_layoutManager
         add_friend_adapter = Adapter_AddFriendRecycler(id,name)
         add_friend_recycler.adapter = add_friend_adapter
         add_friend_adapter.notifyDataSetChanged()
     }
-    fun setToolbar(){
+    /*fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
         var activity = activity as MainActivity
         activity.setSupportActionBar(toolbar)
@@ -189,7 +187,7 @@ class FragmentTab1: Fragment() {
                 var params:WindowManager.LayoutParams = activity!!.window.attributes
             }
         })
-    }
+    }*/
     fun setUpdateTime(){
         updtetime_text.text = update_time + " 업데이트 됨"
     }
@@ -199,7 +197,7 @@ class FragmentTab1: Fragment() {
         var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
         var hide_button = parent.findViewById<ImageButton>(R.id.btn_hide)
-        var search_view = parent.findViewById<android.support.v7.widget.SearchView>(R.id.search_friend_view)
+        var search_view = parent.findViewById<SearchView>(R.id.search_friend_view)
         var submit_btn = parent.findViewById<Button>(R.id.submit_btn)
         sliding_layout.setOnDragListener(null)
         sliding_layout.isTouchEnabled = false
@@ -231,7 +229,7 @@ class FragmentTab1: Fragment() {
         search_view.setOnSearchClickListener {
             (context as MainActivity).mWebView.loadUrl(open_friend_script())
         }
-        search_view.setOnQueryTextListener(object:android.support.v7.widget.SearchView.OnQueryTextListener{
+        search_view.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 var query = ""
                 if(p0 == null) query = ""

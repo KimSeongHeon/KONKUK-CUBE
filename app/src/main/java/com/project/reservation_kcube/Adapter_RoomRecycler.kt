@@ -1,13 +1,13 @@
 package com.project.reservation_kcube
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class Adapter_RoomRecycler(var data:Array<Int>,var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>,var building:Int,var room_info:MutableMap<Int,Data_roomInfo>,var fragement1:FragmentTab1)
     : RecyclerView.Adapter<Adapter_RoomRecycler.ViewHolder>() {

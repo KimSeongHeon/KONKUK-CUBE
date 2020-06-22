@@ -1,9 +1,9 @@
 package com.project.reservation_kcube
 
 import android.content.Context
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.FragmentManager
 import android.view.MenuItem
+import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab2
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab3
@@ -11,7 +11,7 @@ import com.project.reservation_kcube.MainActivity.Companion.fragmentTab4
 import com.project.reservation_kcube.MainActivity.Companion.progressDialog
 import kotlinx.android.synthetic.main.up_reserve.*
 
-open class ItemClickListener(fragmentManager:FragmentManager,context:Context):BottomNavigationView.OnNavigationItemSelectedListener {
+open class ItemClickListener(fragmentManager: FragmentManager, context:Context): BottomNavigationView.OnNavigationItemSelectedListener {
     var fragmentManager = fragmentManager
     var context = context
     var mainActivity = (context as MainActivity)

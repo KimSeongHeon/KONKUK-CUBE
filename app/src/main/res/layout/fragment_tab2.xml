@@ -13,10 +13,10 @@
             android:padding="10dp"
             android:text="예약현황은 최근 신청일 기준 10개만 표시됩니다."
     />
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/reserve_list_rcyview"
             android:background="#F1F1F1">
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

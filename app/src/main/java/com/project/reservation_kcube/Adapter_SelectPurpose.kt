@@ -3,12 +3,12 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 class Adapter_SelectPurpose(var data:Array<String>)
     : RecyclerView.Adapter<Adapter_SelectPurpose.ViewHolder>() {

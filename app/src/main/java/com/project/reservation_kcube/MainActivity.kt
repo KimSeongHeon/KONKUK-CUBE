@@ -3,15 +3,17 @@ package com.project.reservation_kcube
 import android.app.ProgressDialog
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
+
+
 
 class MainActivity : AppCompatActivity() {
     val TEST_URL = "https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do?paramStart=paramStart&rsvYmd=2020.01.15&buildAll=Y&_buildAll=on&_buildList[1]=on&_buildList[2]=on&_buildList[3]=on&_buildList[4]=on&_buildList[5]=on&_buildList[6]=on"
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         mWebView2= findViewById(R.id.background_webview2)
         WebSetting = mWebView.settings;
         WebSetting2 = mWebView2.settings
+        WebView.setWebContentsDebuggingEnabled(true)
         mWebView.addJavascriptInterface(MyJavaScriptInterface(this),"android")
         mWebView2.addJavascriptInterface(MyJavaScriptInterface(this),"android")
         mWebView.webViewClient = object : WebViewClient(){
@@ -125,6 +128,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         WebSetting.javaScriptEnabled = true;
+        WebSetting.blockNetworkImage = false;
+        //WebSetting.cacheMode = WebSettings.LOAD_NO_CACHE
         WebSetting2.javaScriptEnabled = true;
     }
     fun init_tab(){

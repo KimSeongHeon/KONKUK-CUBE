@@ -11,11 +11,11 @@
         sothree:umanoPanelHeight="68dp"
         sothree:umanoParalaxOffset="100dp"
         sothree:umanoShadowHeight="4dp">
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_weight="0"
@@ -23,7 +23,7 @@
             android:backgroundTint="#FFFFFF"
             android:id="@+id/top_date_Appbarlayout"
             android:gravity="center">
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/collapseToolbar"
@@ -44,22 +44,22 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="#5C3D3B3B"/>
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         app:layout_collapseMode="parallax"
                         android:background="#FFFFFF"
                         android:id="@+id/when_recyclerview">
-                </android.support.v7.widget.RecyclerView>
-                <android.support.v7.widget.RecyclerView
+                </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
                         android:layout_marginTop="7dp"
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:background="#FFFFFF"
                         app:layout_collapseMode="parallax"
                         android:id="@+id/where_recyclerview">
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -83,7 +83,7 @@
                             android:layout_marginRight="20dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:id="@+id/title_toolbar"
@@ -99,8 +99,8 @@
                         android:layout_marginBottom="8dp"
                         android:id="@+id/top_date_textview"
                         android:textSize="15dp"/>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -109,10 +109,10 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="#5C3D3B3B"/>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <include layout="@layout/tab1_content_main"
     android:id="@+id/include_view"/>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!-- SLIDING LAYOUT -->
   <include layout="@layout/up_reserve"
   android:id="@+id/up_reserve"/>

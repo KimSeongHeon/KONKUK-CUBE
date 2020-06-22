@@ -2,8 +2,6 @@ package com.project.reservation_kcube
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
@@ -12,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class Adapter_ArcodianRecycler(var data:Array<Int>, var room_num_info:MutableMap<Int,HashSet<Int>>, var time_info:MutableMap<Pair<Int,Int>,ArrayList<String>>, var room_info: MutableMap<Int, Data_roomInfo>, var fragment1:FragmentTab1)
     : RecyclerView.Adapter<Adapter_ArcodianRecycler.ViewHolder>() {
@@ -75,7 +75,7 @@ class Adapter_ArcodianRecycler(var data:Array<Int>, var room_num_info:MutableMap
             Log.v("room_num_info",room_num_info.size.toString())
             Log.v("position",data.get(position).toString())
             room_adapter = Adapter_RoomRecycler(room_num_info[data.get(position)]!!.toTypedArray(),time_info,data[position],room_info,fragment1)
-            rcyview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            rcyview.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
             rcyview.adapter = room_adapter
             list.visibility = View.VISIBLE
         }

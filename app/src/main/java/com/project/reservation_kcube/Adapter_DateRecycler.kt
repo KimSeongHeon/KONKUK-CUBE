@@ -2,16 +2,16 @@ package com.project.reservation_kcube
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_tab1.*
 
 class Adapter_DateRecycler(var data:Array<String>,var fragmentTab1: FragmentTab1)
-    :RecyclerView.Adapter<Adapter_DateRecycler.ViewHolder>() {
+    : RecyclerView.Adapter<Adapter_DateRecycler.ViewHolder>() {
     lateinit var context: Context
     var selectedPosition:Int = 0
     var mSelectedItems = SparseBooleanArray(0)
