@@ -1,3 +1,3 @@
 # KONKUK-CUBE
-### KU K-CUBE RESERVATION ASSISTANT
+#### K-CUBE Reservation Assistant
 
