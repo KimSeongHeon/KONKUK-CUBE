@@ -1,18 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="불편신고"
-            android:textSize="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/notselected_background_border"
+            android:orientation="horizontal">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:padding="7dp"
+                   android:layout_gravity="center"
+                   android:background="@drawable/selected_background_border"
+                    android:src="@drawable/baseline_face_black_18dp"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="우루꾸루후우 님"
+                        android:id="@+id/my_name_text"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="학과 : 컴퓨터 공학부"
+                    android:id="@+id/my_dept_text"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="학번 : 201511182"
+                    android:id="@+id/my_sid_text"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/notselected_background_border">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginBottom="5dp"
+                  android:textStyle="bold"
+                  android:text="개인 설정"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/divider"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#5C3D3B3B"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="40dp"
+                  android:paddingLeft="10dp"
+                  android:gravity="center_vertical"
+                  android:id="@+id/logout_text"
+                  android:text="로그아웃"/>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10dp"
+                      android:layout_gravity="center_vertical"
+                      android:text="자동 로그인"/>
+            <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="10dp"
+            />
+        </FrameLayout>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:paddingLeft="10dp"
+                  android:gravity="center_vertical"
+                  android:layout_marginBottom="5dp"
+                  android:text="즐겨찾기 관리"/>
+    </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/notselected_background_border">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textStyle="bold"
+                      android:text="앱 정보"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#5C3D3B3B"/>
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="40dp">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:paddingLeft="10dp"
+                      android:gravity="center_vertical"
+                      android:text="앱 버전"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="match_parent"
+                          android:paddingLeft="10dp"
+                          android:layout_marginBottom="5dp"
+                          android:layout_gravity="right|center"
+                          android:gravity="center"
+                          android:paddingRight="10dp"
+                          android:text="ver 1.00"/>
+            </FrameLayout>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="45dp"
+                      android:paddingLeft="10dp"
+                      android:gravity="center_vertical"
+                      android:text="공지 사항"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="45dp"
+                      android:paddingLeft="10dp"
+                      android:gravity="center_vertical"
+                      android:text="사용법"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="45dp"
+                      android:paddingLeft="10dp"
+                      android:gravity="center_vertical"
+                      android:text="버그 제보"/>
+        </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/notselected_background_border">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginBottom="10dp"
+                  android:textStyle="bold"
+                  android:text="개발자 정보"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginBottom="5dp"
+                  android:text="개인 설정"/>
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         var fragmentTab3:FragmentTab3? = null
         var fragmentTab4:FragmentTab4? = null
         lateinit var progressDialog:ProgressDialog
+        var my_name = ""
+        var my_dept = ""
+        var my_sid = ""
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         WebView.setWebContentsDebuggingEnabled(true)
         mWebView.addJavascriptInterface(MyJavaScriptInterface(this),"android")
         mWebView2.addJavascriptInterface(MyJavaScriptInterface(this),"android")
+        //val time = System.currentTimeMillis()/1000;
         mWebView.webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {
                 if(url.equals(TEST_URL)){
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                 if(url.equals(NOTICE_URL)){
                     view!!.loadUrl(go_reserve_tab_script())
                 }
-                if(url.equals(FIRST_RESERVE_URL)){
+                if(url.equals(FIRST_RESERVE_URL) || url.toString().contains("&buildAll=Y&_buildAll=on&_buildList[1]=on&_buildList[2]=on&_buildList[3]=on&_buildList[4]=on&_buildList[5]=on&_buildList[6]=on")){
                     if(!load_check) {//첫번째 로드 시
                         view!!.loadUrl(select_all_script())
                         view!!.loadUrl(update_date_script("0"))
@@ -93,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                             tab_check = 0;
                         }
                         else{
+                            view!!.loadUrl(get_name())
                             view!!.loadUrl(parsing_building())
                             view!!.loadUrl(parsing_date())
                             view!!.loadUrl(parsing_table())
@@ -128,7 +133,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
         WebSetting.javaScriptEnabled = true;
-        WebSetting.blockNetworkImage = false;
+        WebSetting.blockNetworkImage = true;
+        WebSetting.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        /*WebSetting.loadWithOverviewMode = true;
+        WebSetting.useWideViewPort = true;
+        WebSetting.setSupportZoom(true)
+        WebSetting.builtInZoomControls = false
+        WebSetting.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        WebSetting.cacheMode = WebSettings.LOAD_NO_CACHE
+        WebSetting.domStorageEnabled = true
+        mWebView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
+        mWebView.isScrollbarFadingEnabled = true
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) mWebView.setLayerType(View.LAYER_TYPE_HARDWARE,null)
+        else mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE,null)*/
         //WebSetting.cacheMode = WebSettings.LOAD_NO_CACHE
         WebSetting2.javaScriptEnabled = true;
     }

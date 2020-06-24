@@ -17,6 +17,15 @@
             android:id="@+id/content_linearlayout"
             android:fillViewport="true"
             android:background="#FFFFFF">
+        <ProgressBar
+                android:id="@+id/loading_progressBar"
+                style="?android:attr/progressBarStyle"
+                android:indeterminateDrawable="@drawable/circle_progress"
+                android:indeterminateDuration="1000"
+                android:layout_width="20dp"
+                android:layout_gravity="top|center"
+                android:visibility="visible"
+                android:layout_height="20dp"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

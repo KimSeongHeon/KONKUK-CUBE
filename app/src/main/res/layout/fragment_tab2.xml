@@ -13,10 +13,23 @@
             android:padding="10dp"
             android:text="예약현황은 최근 신청일 기준 10개만 표시됩니다."
     />
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+    <ProgressBar
+            android:id="@+id/loading_progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/circle_progress"
+            android:indeterminateDuration="1000"
+            android:layout_width="20dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:layout_height="20dp"/>
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/reserve_list_rcyview"
+            android:visibility="visible"
             android:background="#F1F1F1">
     </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
 </LinearLayout>

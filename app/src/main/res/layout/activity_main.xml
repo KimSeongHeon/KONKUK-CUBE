@@ -6,12 +6,13 @@
         android:orientation="vertical">
     <LinearLayout android:layout_width="match_parent"
                android:layout_height="0dp"
-               android:layout_weight="1"
+               android:layout_weight="0.8"
                   android:background="#036B3F"
                android:textAlignment="center">
         <ImageView android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:src="@drawable/toplogo"
+                   android:scaleType="fitXY"
                    android:layout_marginLeft="100dp"
                    android:layout_marginRight="100dp"/>
 

@@ -38,6 +38,7 @@ class FragmentTab1: Fragment() {
     lateinit var select_time_adapter:Adapter_SelectTime
     lateinit var select_purpose_adapter:Adapter_SelectPurpose
     lateinit var add_friend_adapter:Adapter_AddFriendRecycler
+    lateinit var progressBar:ProgressBar
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
     var date_recyclerview_scroll = 0;
@@ -68,6 +69,7 @@ class FragmentTab1: Fragment() {
         add_friend_recycler = view!!.findViewById(R.id.add_friend_recycler)
         var parent = view!!.findViewById<View>(R.id.include_view)
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
+        progressBar = parent.findViewById(R.id.loading_progressBar)
         Log.v("building data",Building_data.size.toString())
         Log.v("date_data",Date_data.size.toString())
         if(Building_data.size != 0) dispay_building(Building_data)
@@ -91,6 +93,10 @@ class FragmentTab1: Fragment() {
         when_layoutManager.scrollToPosition(date_recyclerview_scroll)
         date_adapter.notifyDataSetChanged()
         setUpdateTime()
+        progressDialog.dismiss()
+        accordian_text.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+        arcodian_recycler.visibility = View.GONE
     }
     fun display_table(value:Array<String>){
         var json_arr = JSONArray()
@@ -135,7 +141,8 @@ class FragmentTab1: Fragment() {
             arcodian_recycler.adapter = arcodian_adapter
             arcodian_adapter.notifyDataSetChanged()
         }
-        progressDialog.dismiss()
+        progressBar.visibility = View.GONE
+        arcodian_recycler.visibility = View.VISIBLE
         setUpdateTime()
     }
     fun display_reserve_data(date:String,location:String,location_info:String,name:String,possible_time:String,purpose:Array<String>,userInfo:String){
@@ -196,7 +203,7 @@ class FragmentTab1: Fragment() {
         var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
         var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)
-        var hide_button = parent.findViewById<ImageButton>(R.id.btn_hide)
+        var hide_button = parent.findViewById<ImageView>(R.id.btn_hide)
         var search_view = parent.findViewById<SearchView>(R.id.search_friend_view)
         var submit_btn = parent.findViewById<Button>(R.id.submit_btn)
         sliding_layout.setOnDragListener(null)
@@ -210,7 +217,6 @@ class FragmentTab1: Fragment() {
             (context as MainActivity).mWebView.loadUrl(final_submit_script())
         }
         hide_button.setOnClickListener {
-            MainActivity.progressDialog.show()
             var imm = this.context!!.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(search_view.windowToken,0)
             search_view.setQuery("",false)
@@ -219,7 +225,9 @@ class FragmentTab1: Fragment() {
             add_friend_recycler.adapter = add_friend_adapter //초기화
             add_friend_adapter.notifyDataSetChanged()
             sliding_layout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
-            parent.visibility = View.GONE
+            arcodian_recycler.visibility = View.GONE
+            accordian_text.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
             when_recyclerview.setBackgroundColor(Color.WHITE)
             (context as MainActivity).mWebView.loadUrl((context as MainActivity).FIRST_RESERVE_URL)
         }

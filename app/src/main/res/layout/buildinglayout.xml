@@ -14,7 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:background="#F1EBEB"
+                android:background="@drawable/selected_background_border"
                 android:paddingLeft="10dp"
                 android:textStyle="bold"
                 android:id="@+id/building_title_text"
@@ -31,7 +31,7 @@
             android:orientation="vertical"
             android:text="content"
             android:id="@+id/roomlist_linearlayout"
-            android:background="@drawable/make_border"
+            android:background="@drawable/notselected_background_border"
             android:animateLayoutChanges="true">
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="10dp"

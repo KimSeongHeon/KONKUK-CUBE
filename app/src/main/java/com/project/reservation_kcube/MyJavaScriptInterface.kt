@@ -3,14 +3,24 @@ package com.project.reservation_kcube
 import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab1
 import com.project.reservation_kcube.MainActivity.Companion.fragmentTab2
+import com.project.reservation_kcube.MainActivity.Companion.my_dept
+import com.project.reservation_kcube.MainActivity.Companion.my_name
+import com.project.reservation_kcube.MainActivity.Companion.my_sid
 
 class MyJavaScriptInterface(context:Context){
     var mcontext:Context = context;
+    @JavascriptInterface
+    fun get_my_name(name:String,dept:String,id:String){
+        Log.v("show_your_info",name+dept+id);
+        my_name = name
+        my_dept = dept
+        my_sid = id
+    }
     @JavascriptInterface
     fun get_building(value:Array<String>){
         Thread(object :Runnable{
@@ -111,19 +121,19 @@ class MyJavaScriptInterface(context:Context){
                 (mcontext as MainActivity).runOnUiThread(object : Runnable{
                     override fun run(){
                         Toast.makeText(mcontext,str,Toast.LENGTH_SHORT).show()
-                        fragmentTab1!!.view!!.findViewById<LinearLayout>(R.id.up_reserve).findViewById<ImageButton>(R.id.btn_hide).performClick()
+                        fragmentTab1!!.view!!.findViewById<LinearLayout>(R.id.up_reserve).findViewById<ImageView>(R.id.btn_hide).performClick()
                     }
                 })
             }
         }).start()
     }
     @JavascriptInterface
-    fun print_reserve(str:Array<String>){
-        Log.v("str",str[0])
-        Thread(object:Runnable{
-            override fun run(){
-                (mcontext as MainActivity).runOnUiThread(object : Runnable{
-                    override fun run(){
+    fun print_reserve(str:Array<String>) {
+        Log.v("str", str[0])
+        Thread(object : Runnable {
+            override fun run() {
+                (mcontext as MainActivity).runOnUiThread(object : Runnable {
+                    override fun run() {
                         fragmentTab2!!.display_reserveList(str)
                     }
                 })

@@ -2,6 +2,17 @@ package com.project.reservation_kcube
 
 import android.util.Log
 
+fun get_name():String{
+    return "javascript:function temp(){" +
+            "var name = document.getElementsByClassName('name1 first')[0].textContent;" +
+            "name = name.split('\\n')[0];" +
+            "var dept = document.getElementsByClassName('name2')[0].textContent;" +
+            "dept = dept.split('\\n')[1];" +
+            "var id = document.getElementsByClassName('name3 last')[0].textContent;" +
+            "id = id.split('\\n')[1];" +
+            "window.android.get_my_name(name,dept,id); return true;" +
+            "}; temp()"
+}
 fun login_script(user_id:String,user_pw:String):String{
     return "javascript:function afterLoad() {" +
             "document.getElementsByName('userId')[0].value = '"+ user_id + "';"+

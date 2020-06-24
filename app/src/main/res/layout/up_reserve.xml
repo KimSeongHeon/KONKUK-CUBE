@@ -12,13 +12,12 @@
             android:padding="5dp"
             android:id="@+id/reserve_title_linear"
             android:orientation="horizontal">
-        <ImageButton
+        <ImageView
                 android:id="@+id/btn_hide"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:text="hide"
-                android:background="#FFFFFF"
                 android:src="@drawable/baseline_clear_black_24"
                 android:textSize="12dp"/>
         <TextView android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,8 @@ import org.json.JSONObject
 class FragmentTab2: Fragment() {
     lateinit var reserve_list_rcyview: RecyclerView
     lateinit var reserve_list_adapter:Adapter_ReserveListRecycler
+    lateinit var progressBar:ProgressBar
+    var load = false
     var reserve_list_layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL,false)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v("onAcitivity2","created")
@@ -21,7 +24,9 @@ class FragmentTab2: Fragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.v("onAcitivity2","createdActivity")
+        load = true
         reserve_list_rcyview = view!!.findViewById<RecyclerView>(R.id.reserve_list_rcyview)
+        progressBar = view!!.findViewById(R.id.loading_progressBar2)
         super.onActivityCreated(savedInstanceState)
     }
     fun init_variable(){
@@ -51,6 +56,7 @@ class FragmentTab2: Fragment() {
         reserve_list_adapter = Adapter_ReserveListRecycler(data.toTypedArray())
         reserve_list_rcyview.adapter = reserve_list_adapter
         reserve_list_adapter.notifyDataSetChanged()
-        MainActivity.progressDialog.dismiss()
+        reserve_list_rcyview.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 }
