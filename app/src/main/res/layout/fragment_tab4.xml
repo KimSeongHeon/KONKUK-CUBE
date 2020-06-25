@@ -11,8 +11,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/notselected_background_border"
             android:orientation="horizontal">
         <ImageView android:layout_width="wrap_content"
@@ -64,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="vertical"
             android:background="@drawable/notselected_background_border">
         <TextView android:layout_width="match_parent"
@@ -99,10 +99,15 @@
                       android:layout_gravity="center_vertical"
                       android:text="자동 로그인"/>
             <ToggleButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="right|center"
+                    android:background="@drawable/toggle_on"
+                    android:textOff="@null"
+                    android:textOn = "@null"
+                    android:checked="true"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/auto_login_toggle"
             />
         </FrameLayout>
         <TextView android:layout_width="match_parent"
@@ -116,8 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:orientation="vertical"
                 android:background="@drawable/notselected_background_border">
             <TextView android:layout_width="match_parent"
@@ -171,8 +176,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="vertical"
             android:background="@drawable/notselected_background_border">
         <TextView android:layout_width="match_parent"
@@ -182,11 +187,62 @@
                   android:layout_marginBottom="10dp"
                   android:textStyle="bold"
                   android:text="개발자 정보"/>
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#5C3D3B3B"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:orientation="horizontal">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                   android:src="@drawable/baseline_person_black_18"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
                   android:layout_marginLeft="10dp"
+                  android:gravity="center"
                   android:layout_marginBottom="5dp"
-                  android:text="개인 설정"/>
+                  android:text="- KIM SEONG HEON"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:orientation="horizontal">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center_vertical"
+                       android:src="@drawable/baseline_phone_black_18dp"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:layout_marginLeft="10dp"
+                      android:gravity="center"
+                      android:layout_marginBottom="5dp"
+                      android:text="- 010.7472.3267"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:orientation="horizontal">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center_vertical"
+                       android:src="@drawable/baseline_email_black_18dp"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:layout_marginLeft="10dp"
+                      android:gravity="center"
+                      android:layout_marginBottom="5dp"
+                      android:text="- rlat302@konkuk.ac.kr"/>
+        </LinearLayout>
     </LinearLayout>
     </LinearLayout>
     </ScrollView>

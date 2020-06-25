@@ -2,14 +2,18 @@ package com.project.reservation_kcube
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.webkit.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.sql.SQLException
 
 
 class LoginActivity : AppCompatActivity() {
@@ -20,11 +24,48 @@ class LoginActivity : AppCompatActivity() {
     lateinit var mWebView: WebView
     lateinit var WebSetting:WebSettings
     lateinit var progressDialog:ProgressDialog
+    companion object{
+        val DATABASE_VERSION = 1
+        val DATABASE_NAME = "UserInfo"
+        val TABLE_NAME = "info"
+        lateinit var DB:SQLiteDatabase
+        lateinit var id:String
+        lateinit var pw:String
+        var auto = 1;
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         init_variable()
         init_listener()
+        init_DB()
+    }
+    fun init_DB(){
+        DB = this.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE,null)
+        try{
+            DB.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+                    " (ID VARCHAR(20),PW VARCHAR(50),AUTO NUMBER(1));");
+            var ReadDB:SQLiteDatabase = this.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE,null)
+            var c = ReadDB.rawQuery("SELECT * FROM " + TABLE_NAME,null)
+            if(c.count == 0){
+                Log.v("데이터 없음","not data")
+            }
+            else{
+                c.moveToFirst()
+                Log.v("데이터 있음","have data")
+                id = c.getString(c.getColumnIndex("ID"))
+                pw = c.getString(c.getColumnIndex("PW"))
+                auto = c.getInt(c.getColumnIndex("AUTO"))
+                if(auto == 1){
+                    editID.setText(id)
+                    editPW.setText(pw)
+                    loginButton.performClick()
+                    return
+                }
+            }
+        }catch(e: SQLException){
+            Log.e("sql error",e.toString())
+        }
     }
     fun init_variable(){
         editID = findViewById<EditText>(R.id.id_edittext)
@@ -41,6 +82,15 @@ class LoginActivity : AppCompatActivity() {
             }
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 if(url.toString().contains("findCubeResveStep1.do")){
+                    try{
+                        //기존의 데이터를 지움
+                        DB.execSQL("DELETE FROM " +  TABLE_NAME + ";")
+                        //새로운 id값을 저장하자
+                        DB.execSQL("INSERT INTO " + TABLE_NAME + " VALUES(\'"
+                        + editID.text.toString()+ "\',\'"+ editPW.text.toString() + "\',"+ auto +");" )
+                    }catch (se: SQLiteException){
+                        Log.e("login sql error",se.toString())
+                    }
                     var intent = Intent(applicationContext,MainActivity::class.java);
                     intent.putExtra("user_id",editID.text.toString());
                     intent.putExtra("user_pw",editPW.text.toString());
