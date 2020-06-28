@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "UserInfo"
         val TABLE_NAME = "info"
+        val TABLE_NAME2 = "FRIEND"
         lateinit var DB:SQLiteDatabase
         lateinit var id:String
         lateinit var pw:String
@@ -45,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
         try{
             DB.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                     " (ID VARCHAR(20),PW VARCHAR(50),AUTO NUMBER(1));");
+            DB.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME2 +
+                    " (ID VARCHAR(20),NAME VARCHAR(50);");
             var ReadDB:SQLiteDatabase = this.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE,null)
             var c = ReadDB.rawQuery("SELECT * FROM " + TABLE_NAME,null)
             if(c.count == 0){
