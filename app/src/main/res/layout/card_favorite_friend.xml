@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/notselected_background_border"
+              android:id="@+id/favorite_friend_linear"
+>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="201512321"
+            android:padding="5dp"
+            android:gravity="center"
+            android:id="@+id/s_id_text"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#5C3D3B3B"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="김나나"
+            android:layout_gravity="center"
+            android:id="@+id/frined_name_text"/>
+
+</LinearLayout>

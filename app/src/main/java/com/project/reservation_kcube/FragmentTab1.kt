@@ -1,6 +1,8 @@
 package com.project.reservation_kcube
 
+import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.project.reservation_kcube.LoginActivity.Companion.DB
+import com.project.reservation_kcube.LoginActivity.Companion.TABLE_NAME2
 import com.project.reservation_kcube.MainActivity.Companion.progressDialog
 import com.project.reservation_kcube.MainActivity.Companion.update_time
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -32,12 +36,14 @@ class FragmentTab1: Fragment() {
     lateinit var select_time_recycler:RecyclerView
     lateinit var select_purpose_recycler:RecyclerView
     lateinit var add_friend_recycler:RecyclerView
+    lateinit var show_friend_recycler:RecyclerView
     lateinit var  date_adapter:Adapter_DateRecycler
     lateinit var building_adapter:Adapter_BuildingRecycler
     lateinit var arcodian_adapter:Adapter_ArcodianRecycler
     lateinit var select_time_adapter:Adapter_SelectTime
     lateinit var select_purpose_adapter:Adapter_SelectPurpose
     lateinit var add_friend_adapter:Adapter_AddFriendRecycler
+    lateinit var show_friend_adapter:Adapter_ShowFriendRecycler
     lateinit var progressBar:ProgressBar
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
@@ -48,6 +54,7 @@ class FragmentTab1: Fragment() {
     var select_time_layoutManager = GridLayoutManager(this.context, 2)
     var select_purpose_layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
     var add_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
+    var show_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
     var successive_time:Double = 0.0
     var possible_my_time = 0.0
     var select_clock = ""
@@ -55,6 +62,7 @@ class FragmentTab1: Fragment() {
     var room_num_info = mutableMapOf<Int,HashSet<Int>>()
     var time_info = mutableMapOf<Pair<Int,Int>,ArrayList<String>>()
     var room_info = mutableMapOf<Int,Data_roomInfo>()
+    var friend_info = arrayListOf<Data_FriendInfo>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.v("onView","crated")
         return inflater.inflate(R.layout.fragment_tab1,container,false);
@@ -66,16 +74,34 @@ class FragmentTab1: Fragment() {
         date_recycler = view!!.findViewById(R.id.when_recyclerview)
         select_time_recycler = view!!.findViewById(R.id.select_time_recycler)
         select_purpose_recycler = view!!.findViewById(R.id.select_purpose_recycler)
-        add_friend_recycler = view!!.findViewById(R.id.add_friend_recycler)
         var parent = view!!.findViewById<View>(R.id.include_view)
+        add_friend_recycler = view!!.findViewById(R.id.add_friend_recycler)
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
         progressBar = parent.findViewById(R.id.loading_progressBar)
+        show_friend_recycler = view!!.findViewById(R.id.friend_favorite_rcyview)
         Log.v("building data",Building_data.size.toString())
         Log.v("date_data",Date_data.size.toString())
         if(Building_data.size != 0) dispay_building(Building_data)
         if(Date_data.size != 0) display_date(Date_data)
+        load_friendData()
         init_variable()
         //setToolbar()
+    }
+    fun load_friendData(){
+        friend_info.clear()
+        var ReadDB: SQLiteDatabase = (context as MainActivity).openOrCreateDatabase(LoginActivity.DATABASE_NAME, Context.MODE_PRIVATE,null)
+        Log.v("id",LoginActivity.id)
+        var c = ReadDB.rawQuery("SELECT * FROM " + LoginActivity.TABLE_NAME2 + " WHERE ID = \"${LoginActivity.id}\" ORDER BY date desc" ,null)
+        if(c.moveToFirst()){
+            do{
+                var id = c.getString(c.getColumnIndex("ID"));
+                var s_id = c.getString(c.getColumnIndex("S_ID"))
+                var name = c.getString(c.getColumnIndex("NAME"))
+                var date = c.getString(c.getColumnIndex("date"))
+                Log.v("load_friend_data",id+s_id+name+date)
+                friend_info.add(Data_FriendInfo(id,s_id,name,date))
+            }while(c.moveToNext())
+        }
     }
     fun dispay_building(value:Array<String>){
         where_layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL,false)
@@ -142,7 +168,7 @@ class FragmentTab1: Fragment() {
             arcodian_adapter.notifyDataSetChanged()
         }
         progressBar.visibility = View.GONE
-        arcodian_recycler.visibility = View.VISIBLE
+        //arcodian_recycler.visibility = View.VISIBLE
         setUpdateTime()
     }
     fun display_reserve_data(date:String,location:String,location_info:String,name:String,possible_time:String,purpose:Array<String>,userInfo:String){
@@ -177,6 +203,13 @@ class FragmentTab1: Fragment() {
         select_purpose_adapter = Adapter_SelectPurpose(purpose)
         select_purpose_recycler.adapter = select_purpose_adapter
         select_purpose_adapter.notifyDataSetChanged()
+        Log.v("friend_info",friend_info.size.toString())
+        load_friendData()
+        show_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
+        show_friend_recycler.layoutManager = show_friend_layoutManager
+        show_friend_adapter = Adapter_ShowFriendRecycler(friend_info.toTypedArray())
+        show_friend_recycler.adapter = show_friend_adapter
+        show_friend_adapter.notifyDataSetChanged()
     }
     fun display_friend(id:Array<String>,name:Array<String>){
         add_friend_layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
@@ -184,6 +217,16 @@ class FragmentTab1: Fragment() {
         add_friend_adapter = Adapter_AddFriendRecycler(id,name)
         add_friend_recycler.adapter = add_friend_adapter
         add_friend_adapter.notifyDataSetChanged()
+    }
+
+    fun save_frienddata(arr:Array<String>){
+        Log.v("size",arr.size.toString())
+        for(i in 0 until arr.size){
+            Log.v("asf",arr[i] + add_friend_adapter.ret[i])
+            DB.execSQL("INSERT OR IGNORE INTO "+ TABLE_NAME2 + "(ID,S_ID,NAME,date) VALUES"+"(\"${LoginActivity.id}\",\"${arr[i]}\",\"${add_friend_adapter.ret[i]}\",CURRENT_TIMESTAMP)" ) //없을 경우
+            DB.execSQL("UPDATE " + TABLE_NAME2 + " set date = CURRENT_TIMESTAMP " + "where id = \"${LoginActivity.id}\" and s_id = \"${arr[i]}\"") //있을 경우
+        }
+        load_friendData()
     }
     /*fun setToolbar(){
         var toolbar = activity!!.findViewById<Toolbar>(R.id.title_toolbar)
@@ -248,11 +291,9 @@ class FragmentTab1: Fragment() {
                 search_view.onActionViewCollapsed()
                 return true;
             }
-
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             }
         })
-
     }
 }

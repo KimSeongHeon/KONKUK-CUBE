@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 class Adapter_AddFriendRecycler(var id:Array<String>,var name:Array<String>): RecyclerView.Adapter<Adapter_AddFriendRecycler.ViewHolder>() {
     lateinit var context:Context
+    var ret = name
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Adapter_AddFriendRecycler.ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.card_friend, p0, false)
         context = p0.context
+        ret = name;
         return ViewHolder(v);
     }
-
     override fun getItemCount(): Int {
         return id.size
     }
-
     override fun onBindViewHolder(p0: Adapter_AddFriendRecycler.ViewHolder, p1: Int) {
         p0.id.text = id[p1]
         p0.name.text = name[p1]

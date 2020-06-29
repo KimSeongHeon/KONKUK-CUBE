@@ -140,4 +140,9 @@ class MyJavaScriptInterface(context:Context){
             }
         }).start()
     }
+    @JavascriptInterface
+    fun save_friend(arr:Array<String>){
+        Log.v("arr.size",arr.size.toString())
+        fragmentTab1!!.save_frienddata(arr)
+    }
 }

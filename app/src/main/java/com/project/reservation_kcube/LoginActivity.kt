@@ -47,7 +47,8 @@ class LoginActivity : AppCompatActivity() {
             DB.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                     " (ID VARCHAR(20),PW VARCHAR(50),AUTO NUMBER(1));");
             DB.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME2 +
-                    " (ID VARCHAR(20),NAME VARCHAR(50);");
+                    " (ID VARCHAR(20),S_ID VARCHAR(20),NAME VARCHAR(50),date DATETIME,UNIQUE(ID,S_ID))" +
+                    ";");
             var ReadDB:SQLiteDatabase = this.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE,null)
             var c = ReadDB.rawQuery("SELECT * FROM " + TABLE_NAME,null)
             if(c.count == 0){

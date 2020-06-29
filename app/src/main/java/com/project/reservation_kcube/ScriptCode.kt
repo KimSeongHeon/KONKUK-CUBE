@@ -194,6 +194,9 @@ fun final_submit_script():String{
             "window.alert = function(msg){" +
             "window.android.print_error(msg); return true;" +
             "};" +
+            "var arr=  document.querySelectorAll(\"input[name^='reservUserList'][name\$='userId']\");" +
+            "var ret = [...arr].map(v=>v.value);" +
+            "window.android.save_friend(ret);" +
             "document.getElementById('saveBtn').click();" +
             "}temp()"
 }
@@ -230,4 +233,7 @@ fun move_reserve_tab():String{
     return "javascript:function temp(){" +
             "document.getElementsByClassName('tab_style li4')[0].getElementsByTagName('a')[2].click();" +
             "}; temp()"
+}
+fun one_click_add_script(query:String):String{
+
 }

@@ -108,7 +108,10 @@ class MainActivity : AppCompatActivity() {
                     view!!.loadUrl(parsing_reserve_data())
                 }
                 if(url.equals(FINISH_RESERVE_URL)){
-                    view!!.loadUrl(FIRST_RESERVE_URL)
+                    var split = fragmentTab1!!.date_adapter.copy_data[fragmentTab1!!.date_adapter.selectedPosition].split(" ")
+                    var str = split[0].split("년")[0] + "." +split[1].split("월")[0] + "." + split[2].split("일")[0]
+                    view!!.loadUrl("https://mwein.konkuk.ac.kr/ptfol/cmnt/cube/findCubeResveStep1.do?" +
+                            "paramStart=paramStart&rsvYmd=${str}&buildAll=Y&_buildAll=on&_buildList[1]=on&_buildList[2]=on&_buildList[3]=on&_buildList[4]=on&_buildList[5]=on&_buildList[6]=on")
                 }
                 if(url.equals(FIND_CUBE_RESERVE_LIST_URL)){
                     Log.v("Parsing","parsing")

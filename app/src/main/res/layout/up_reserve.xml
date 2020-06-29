@@ -293,6 +293,8 @@
                             android:layout_weight="1.5"
                             android:layout_height="wrap_content"
                             android:background="@drawable/notselected_background_border"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:orientation="vertical">
                         <TextView
                                 android:layout_width="match_parent"
@@ -309,7 +311,8 @@
                                 android:background="#5C3D3B3B"/>
                         <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="270dp"
+                                android:id="@+id/friend_favorite_rcyview"
                                 android:padding="5dp">
 
                         </androidx.recyclerview.widget.RecyclerView>
