@@ -145,4 +145,13 @@ class MyJavaScriptInterface(context:Context){
         Log.v("arr.size",arr.size.toString())
         fragmentTab1!!.save_frienddata(arr)
     }
+    @JavascriptInterface
+    fun say_load(query:String){
+        Log.v("query",query)
+        (mcontext as MainActivity).mWebView.post(object :Runnable{
+            override fun run() {
+                (mcontext as MainActivity).mWebView.loadUrl(Search_friend_script(query))
+            }
+        })
+    }
 }

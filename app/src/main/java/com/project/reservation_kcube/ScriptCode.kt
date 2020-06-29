@@ -158,7 +158,9 @@ fun open_friend_script():String{
             "document.getElementById('userAddBtn').click();} temp()"
 }
 fun Search_friend_script(str:String):String{
+    Log.v("search_friend_script",",")
     return "javascript:function temp(){" +
+            "console.log(\"${str}\");" +
             "document.getElementsByName('userId')[1].value = \"${str}\";" +
             "document.getElementById('addBtn').click();" +
             "var target = document.getElementsByClassName('last')[19];" +
@@ -235,5 +237,17 @@ fun move_reserve_tab():String{
             "}; temp()"
 }
 fun one_click_add_script(query:String):String{
-
+    return "javascript:function temp(){" +
+            "var target = document.getElementsByTagName('body')[0];" +
+            "var observer = new MutationObserver(function(mutations) {" +
+            "mutations.forEach(function(mutation){" +
+            "if(mutation.previousSibling.getAttribute(\'class\') == \"ui-dialog ui-widget ui-widget-content ui-corner-all syworksDialog ui-draggable ui-dialog-buttons\")" +
+            "{window.android.say_load(\"${query}\"); " +
+            "observer.disconnect(); return true;}})"+
+            "});" +
+            "console.log(\"one click add script\");" +
+            "var config = { attributes: false, childList: true, characterData: false };" +
+            "observer.observe(target,config);" +
+            "document.getElementById('userAddBtn').click();" +
+            "}; temp()"
 }

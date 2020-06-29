@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class Adapter_ShowFriendRecycler(var data:Array<Data_FriendInfo>)
     :RecyclerView.Adapter<Adapter_ShowFriendRecycler.ViewHolder>(){
     lateinit var context: Context
+    var selectedPosition:Int = 0
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Adapter_ShowFriendRecycler.ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.card_favorite_friend,p0,false)
         context = p0.context
@@ -24,6 +25,7 @@ class Adapter_ShowFriendRecycler(var data:Array<Data_FriendInfo>)
         p0.s_id.text = data[p1].s_id
         p0.linear.setOnClickListener {
             (context as MainActivity).mWebView.loadUrl(one_click_add_script(data[p1].s_id))
+            selectedPosition = p1
         }
     }
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
