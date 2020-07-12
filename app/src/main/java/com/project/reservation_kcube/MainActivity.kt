@@ -10,6 +10,8 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.android.synthetic.main.up_reserve.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     var load_check2 = false;
     var tab_check = 0
     val fragmentManager = supportFragmentManager;
+    var backKeyPressedTime: Long = 0
     companion object{
         lateinit var update_time:String
         var fragmentTab1:FragmentTab1? = FragmentTab1()
@@ -175,5 +178,23 @@ class MainActivity : AppCompatActivity() {
         var date = Date(now)
         val sdfNow = SimpleDateFormat("HH:mm:ss")
         update_time = sdfNow.format(date)
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            if(fragmentTab1!!.sliding_layout.panelState == SlidingUpPanelLayout.PanelState.EXPANDED){
+                fragmentTab1!!.btn_hide.performClick()
+            }
+            else{
+                backKeyPressedTime = System.currentTimeMillis();
+                Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
+            return
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finishAffinity();
+            System.runFinalization();
+            System.exit(0);
+        }
     }
 }

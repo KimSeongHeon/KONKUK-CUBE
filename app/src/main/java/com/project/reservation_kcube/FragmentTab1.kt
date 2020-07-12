@@ -45,6 +45,7 @@ class FragmentTab1: Fragment() {
     lateinit var add_friend_adapter:Adapter_AddFriendRecycler
     lateinit var show_friend_adapter:Adapter_ShowFriendRecycler
     lateinit var progressBar:ProgressBar
+    lateinit var sliding_layout:SlidingUpPanelLayout
     var Building_data:Array<String> = arrayOf();
     var Date_data:Array<String> = arrayOf()
     var date_recyclerview_scroll = 0;
@@ -79,6 +80,7 @@ class FragmentTab1: Fragment() {
         arcodian_recycler = parent.findViewById(R.id.acordian_recyclerview)
         progressBar = parent.findViewById(R.id.loading_progressBar)
         show_friend_recycler = view!!.findViewById(R.id.friend_favorite_rcyview)
+        sliding_layout = view!!.findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
         Log.v("building data",Building_data.size.toString())
         Log.v("date_data",Date_data.size.toString())
         if(Building_data.size != 0) dispay_building(Building_data)
@@ -242,7 +244,6 @@ class FragmentTab1: Fragment() {
         updtetime_text.text = update_time + " 업데이트 됨"
     }
     fun init_variable(){
-        var sliding_layout = view!!.findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
         var parent = view!!.findViewById<LinearLayout>(R.id.up_reserve)
         var lower_linear = parent.findViewById<LinearLayout>(R.id.lower_linear)
         var title = parent.findViewById<FrameLayout>(R.id.reserve_title_linear)

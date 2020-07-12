@@ -67,7 +67,20 @@ class FragmentTab4: Fragment() {
                 LoginActivity.DB.execSQL("UPDATE INFO SET AUTO= " + "1")
                 auto = 1
             }
-
+        }
+        manage_friend_text.setOnClickListener {
+            var customdialog = MangeFriendDialog(context)
+            customdialog.callFunction()
+        }
+        bugReport_text.setOnClickListener {
+            Toast.makeText(context,"준비중입니다. 아래 e-mail로 연락 부탁드립니다.",Toast.LENGTH_SHORT).show()
+        }
+        manual_text.setOnClickListener {
+            Toast.makeText(context,"준비중입니다.",Toast.LENGTH_SHORT).show()
+        }
+        notice_text.setOnClickListener {
+            var customdialog = MangeFriendDialog(context)
+            customdialog.callFunction()
         }
     }
 }
