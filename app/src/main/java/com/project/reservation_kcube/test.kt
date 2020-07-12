@@ -20,4 +20,9 @@ class test : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
     }
+    class person(function: () -> Boolean) {
+        var name = ""
+        var age = ""
+        var address = ""
+    }
 }

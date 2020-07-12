@@ -99,6 +99,8 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("user_id",editID.text.toString());
                     intent.putExtra("user_pw",editPW.text.toString());
                     startActivity(intent);
+                    id = editID.text.toString()
+                    pw = editPW.text.toString()
                     progressDialog.dismiss()
                 }
                 else if(url.toString() == "https://mwein.konkuk.ac.kr/common/user/login.do"){

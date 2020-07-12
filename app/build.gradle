@@ -37,5 +37,6 @@ dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+    implementation 'com.github.woxthebox:draglistview:1.7.1'
 
 }
