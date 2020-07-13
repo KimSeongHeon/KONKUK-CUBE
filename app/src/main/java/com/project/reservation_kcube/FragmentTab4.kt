@@ -79,8 +79,8 @@ class FragmentTab4: Fragment() {
             Toast.makeText(context,"준비중입니다.",Toast.LENGTH_SHORT).show()
         }
         notice_text.setOnClickListener {
-            var customdialog = MangeFriendDialog(context)
-            customdialog.callFunction()
+            var noticedialog = NoticeDialog(context)
+            noticedialog.callFunction()
         }
     }
 }

@@ -12,7 +12,7 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="16dp"
-            android:text="자주 사용하는 학번 관리"
+            android:text="공지사항"
             android:background="#036B3F"/>
 
     <View
@@ -27,15 +27,8 @@
                 android:text="최근 추가한 친구가 없습니다!"
                 android:layout_width="match_parent"
                 android:visibility="gone"
-                android:id="@+id/no_friend_text"
+                android:id="@+id/notice"
                 android:layout_height="match_parent"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:id="@+id/friend_list_rcyview"
-                android:layout_gravity="center"
-                android:layout_height="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
     <View
             android:layout_width="match_parent"
