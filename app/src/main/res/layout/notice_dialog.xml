@@ -24,9 +24,10 @@
         <TextView
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="최근 추가한 친구가 없습니다!"
                 android:layout_width="match_parent"
-                android:visibility="gone"
+                android:visibility="visible"
+                android:textSize="13dp"
+                android:padding="10dp"
                 android:id="@+id/notice"
                 android:layout_height="match_parent"/>
     </FrameLayout>
@@ -36,7 +37,7 @@
             android:background="#000000"/>
    <Button android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:id="@+id/okButton"
+           android:id="@+id/notice_okButton"
    android:text="확인"
    android:gravity="center"/>
 
