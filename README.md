@@ -2,7 +2,7 @@
 <p align="center"><img src="https://lh3.googleusercontent.com/0UdE_6jnGS3GnWKxV7KjydJEJZcEf38BMANpDznHk8wQgq452E_bV7NWczS8YsiKUN4=s180-rw" height="88" /></p>
 <p align="center">K-CUBE! 번거롭게 웹 페이지에서 예약하지 말고 간편하게 앱으로 예약하자!</p>
 
-
+[![HitCount](http://hits.dwyl.com/KimSeongHeon/KONKUK-CUBE.svg)](http://hits.dwyl.com/KimSeongHeon/KONKUK-CUBE)
 
 <div align = "center"><img src = "https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/276/square_480/github_logo.png" height = "20"/> https://github.com/KimSeongHeon/KONKUK-CUBE</div>
 <br/>
